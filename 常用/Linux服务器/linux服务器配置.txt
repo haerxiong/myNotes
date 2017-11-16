@@ -1,0 +1,91 @@
+﻿1、使用secureCRT链接服务器
+	IP:101.211.73.10
+	密码:***
+
+2、安装rz、sz简单上传、下载工具
+	yum install lrzsz -y  
+
+3、开启ftp功能
+	yum install vsftpd -y
+	修改用户权限
+	vi /etc/vsftpd/ftpusers 
+	vi /etc/vsftpd/user_list
+	启动
+	service vsftpd start
+
+	-----------------
+	服务器有防火墙时，需要设置vsftp的pasv模式端口范围，并开放此端口
+	vi /etc/vsftpd/vsftpd.conf
+	pasv_min_port=10000
+	pasv_max_port=10010
+
+	查看selinux安全服务的状态
+		getenforce
+	临时关闭服务，无需重启
+		setenforce 0
+	永久关闭，修改配置文件
+		vi /etc/sysconfig/selinux
+		改为SELINUX=disabled
+
+5、安装mysql数据库
+	centos6:
+	yum install mysql mysql-server -y
+	centos7:
+	rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+	yum -y install mysql-community-server
+	启动
+	service mysqld start
+
+6、开启mysql远程连接权限，设置新的远程链接密码
+	mysql -uroot -p
+	默认密码空
+	use mysql
+	GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'guowen2017' WITH GRANT OPTION;
+	flush privileges;
+
+	如果连不上，检查阿里云安全规则中是不是没有开放3306端口
+
+7、mysql二次安装要清楚干净上次的文件
+	查找相关文件并清楚干净
+	find / -name mysql
+	安装教程
+	http://jingyan.baidu.com/album/4665065825c740f549e5f830.html?picindex=1
+
+8、安装jdk、配置环境变量
+	linux间内网文件传输
+	scp linux-jdk1.7.zip root@47.92.159.35:/home
+
+	tar zxvf linux-jdk1.7.gz
+	或者
+	unzip linux-jdk1.7.zip
+
+	mv jdk1.7.0_79/ /usr/local/
+
+	chmod +x /usr/local/jdk1.7.0_79/bin/*
+	chmod +x /usr/local/jdk1.7.0_79/jre/bin/*
+
+	/etc/profile文件底部追加：
+	vi /etc/profile
+
+JAVA_HOME=/usr/local/jdk1.7.0_79
+JRE_HOME=/usr/local/jdk1.7.0_79/jre
+PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+export JAVA_HOME JRE_HOME PATH CLASSPATH
+
+	立即生效配置
+	source /etc/profile
+	或
+	. /etc/profile(有空格)
+
+9、如果有必要，tomcat bin/catalina.sh第一行加入：
+	JAVA_OPTS='-Xms512m -Xmx1024m'
+
+10、增加vim中文支持
+	
+	查看本地已安装语言
+	locale
+	安装中文支持
+	yum groupinstall chinese-support
+	LANG=Zn_CN.UTF-8
+	LANG=en_US.UTF-8

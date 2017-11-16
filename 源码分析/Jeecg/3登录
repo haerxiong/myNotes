@@ -1,0 +1,53 @@
+一、web.xml配置默认访问页面
+	<welcome-file-list>
+		<welcome-file>/webpage/login/login.jsp</welcome-file>
+	</welcome-file-list>
+
+二、login.jsp
+	ajax验证action="loginController.do?login"
+
+三、LoginController
+	1、验证成功，获取配置的系统风格，每个风格一个首页
+		"default",	"main/main",			"经典风格"
+		"shortcut",	"main/shortcut_main",	"ShortCut风格"
+		"sliding",	"main/sliding_main",	"Sliding云桌面"
+		"ace",		"main/ace_main",		"ACE平面风格"
+		"acele",	"main/ace_main",		"ACE2风格"
+		"diy",		"main/diy",				"diy风格"
+		"hplus",	"main/hplus_main",		"H+风格"
+
+	2、查询出菜单等相关数据。
+
+四、以hplus为例，main/hplus_main.jsp
+	1、plug-in-ui目录下样式资源位于jeecg-p3-ui-1.1-SNAPSHOT.jar中
+		plug-in-ui/hplus/js/hplus.js 	//ui组件动作、事件
+		plug-in-ui/hplus/js/contabs.js 	//
+		<t:base type="tools"></t:base>  //用于加载指定css、js
+		plug-in/hplus/hplus-tab.js 		//用于弹出TAB
+	2、el表达式取出数据，交给jstl或者自定义标签处理。
+	3、页面结构的重点是tab，tab由iframe实现。
+		   每个tab的唯一标识为data-id；
+		   默认有一个tab，写死在此jsp中；
+		   tab的显示，由display:none属性控制；
+
+五、具体的tab
+	1、结构：
+		// ------------------ 引入公共taglib、变量 -----------------------
+		<%@include file="/context/mytags.jsp"%>
+		// ------------------ 按参数引入不同js、css ----------------------
+		<t:base type="jquery,easyui,tools,DatePicker"></t:base>
+		// ------------------ 数据表单(使用easyui的datagrid实现) ---------
+		<t:datagrid />
+
+	2、自定义标签datagrid
+		datagrid中包含dgCol、dgOpenOpt、dgToolBar标签，最终都被加到datagrid对应自定义标签类的成员变量中，最终一起处理，分别对应成员为：columnList、urlList、toolBarList
+
+		变量			标签		说明
+		columnList		dgCol 		列
+		urlList			dgOpenOpt 	操作按钮
+		toolBarList 	dgToolBar 	功能按钮
+
+	3、toolBarList中默认方法add、update、delete等由何处引入呢？
+		此时从后台代码中不容易发现，可以借助前台工具和IDE的搜索功能进行查找，方法如下：
+		打开浏览器，F12，控制台，输入add，会输出此方法的定义，单击定义会跳转到所在js，发现是
+		crudtools_zh-cn.js，IDE查找此文件，全文搜索或推断，由t:base引入（参数tools）。

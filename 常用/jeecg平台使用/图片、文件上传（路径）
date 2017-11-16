@@ -1,0 +1,9 @@
+图片、文件上传
+，修改图片地址为全路径，方便APP读取内容
+
+Uploader up = new Uploader(request);
+up.setSavePath("upload"); //保存路径
+...
+up.upload();
+String burl = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+response.getWriter().print("{'url':'"+burl+up.getUrl()+"','fileType':'"+up.getType()+"','state':'"+up.getState()+"','original':'"+up.getOriginalName()+"'}");

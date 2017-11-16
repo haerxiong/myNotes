@@ -1,0 +1,28 @@
+打开/phpcms/modules/pay/respond.php 大概14行
+
+/**
+* return_url get形式响应 B5教程网
+*/
+public function respond_get() {
+if ($_GET['code']){
+$code = mysql_real_escape_string($_GET['code']);//修改地方
+$payment = $this->get_by_code($code);//修改地方
+if(!$payment) showmessage(L('payment_failed'));
+$cfg = unserialize_config($payment['config']);
+$pay_name = ucwords($payment['pay_code']);
+pc_base::load_app_class('pay_factory','',0);
+$payment_handler = new pay_factory($pay_name, $cfg);
+$return_data = $payment_handler->receive();
+if($return_data) {
+if($return_data['order_status'] == 0) {
+$this->update_member_amount_by_sn($return_data['order_id']);
+}
+$this->update_recode_status_by_sn($return_data['order_id'],$return_data['order_status']);
+showmessage(L('pay_success'),APP_PATH.'index.php?m=pay&c=deposit');
+} else {
+showmessage(L('pay_failed'),APP_PATH.'index.php?m=pay&c=deposit');
+}
+} else {
+showmessage(L('pay_success'));
+}
+}

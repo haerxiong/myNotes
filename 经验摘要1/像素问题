@@ -1,0 +1,23 @@
+一、
+	一般电脑屏幕上，css中1px等于设备的1px；
+	移动设备上，设备宽度有限，像素密度不同，因而css中1px不等于设备的1px(设计使用的像素)，以iphone为例大约是其1/2。
+
+二、
+	浏览器默认展示宽度，元素可达宽度
+	layout viewport
+	document.documentElement.clientWidth
+
+	浏览器可视宽度，肉眼可达宽度
+	visual viewport
+	window.innerWidth
+
+	理想宽度，在任何设备上显示都差不多
+	ideal viewport
+		iphone	320px
+		android	320px、360px、384px
+
+三、
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	标签中width可以控制浏览器的layout viewport，一般使其等于设备宽度
+
+	width=device-width与initial-scale=1.0效果相似，同时写上可以保证横竖屏都没问题，达到理想宽度。

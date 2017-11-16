@@ -1,0 +1,5 @@
+1、F12控制台
+	
+	不含png或jpg或woff的
+
+	^(?!.*(jpg|png|woff))

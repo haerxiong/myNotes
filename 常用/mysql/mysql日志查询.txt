@@ -1,0 +1,42 @@
+是否启用了日志
+mysql>show variables like 'log_%';
+
+日志文件最大值max_binlog_size
+
+所有二进制日志
+mysql> show master logs;
+
+当前的日志
+mysql> show master status;
+
+看二进制日志文件用mysqlbinlog
+shell>mysqlbinlog mysql-bin.000001
+
+
+查询日志文件位置
+shell>find / -name mysql-bin.000001
+
+cd /var/lib/mysql/
+
+---------------------------------------------------------------------------------------
+max_allowed_packet 1372>1024
+
+6291456
+1073741824
+
+查看mysqld位置
+whereis mysql 
+查看配置读取位置
+/usr/libexec/mysqld --verbose --help |grep -A 1 'Default options'
+查看配置
+show VARIABLES like '%max_allowed_packet%';
+
+---------------------------------------------------------------------------------------
+mysql打开general log之后，所有的查询语句都可以在general log
+文件中以可读的方式得到，但是这样general log文件会非常大，所以默认
+都是关闭的。有的时候为了查错等原因，还是需要暂时打开general log的。  
+show global variables like "%genera%"; 
+set global general_log=on; 
+set global general_log=off; 
+
+/var/run/mysqld/mysqld.log

@@ -1,0 +1,24 @@
+编译
+mvn clean compile
+测试
+mvn clean test
+打包
+mvn clean package
+安装
+mvn clean install
+编译后运行某java main方法
+mvn exec:java -Dexec.mainClass="test.a.PeerA"
+--------------------------------------------------------------
+执行class
+(-cp指定classpath；包名.类名；不加.class后缀)
+java -cp target\classes com.tchj.T
+
+使用maven-shade-plugin打包，运行jar
+java -jar target\hello-1.0.jar
+--------------------------------------------------------------
+使用模板生成maven项目骨架
+maven3.0:
+mvn archetype:generate -DarchetypeCatalog=local 
+
+导出jar包
+mvn dependency:copy-dependencies

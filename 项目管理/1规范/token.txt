@@ -1,0 +1,162 @@
+package com.jinzai.api.filter;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Map;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.jinzai.api.constant.Constants;
+import com.jinzai.api.response.SimpleResponse;
+import com.jinzai.api.service.IgnoreUriService;
+import com.jinzai.framework.exception.ApiError;
+import com.jinzai.util.JsonUtil;
+//@Component
+public class SignatureFilter extends OncePerRequestFilter{
+    private static final Logger logger = LoggerFactory.getLogger(SignatureFilter.class);
+    private IgnoreUriService ignoreUriService;
+   
+    @Override
+    protected void  doFilterInternal(HttpServletRequest request,
+     HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        String servletPath = request.getServletPath();
+        
+        if(!ignoreUriService.isIgnoreSignUri(servletPath)){
+
+            logger.info("正在验证签名...");
+            if (request.getMethod().toLowerCase().endsWith("post")) {
+                Map<String, Object> paramMap = request.getParameterMap();
+                String ts = request.getParameter("ts"); // 客户端时间戳 必须参数 服务器校验
+                                    // 正负10分钟之内
+                if(StringUtils.isBlank(ts) || !NumberUtils.isDigits(ts)){
+                    SimpleResponse simResponse = new SimpleResponse(ApiError.SYS_PARAM_ERROR, request.getRequestURI());
+                    String strResponseJson = JsonUtil.toJson(simResponse);
+                    OutputStream out = response.getOutputStream();
+                    out.write(strResponseJson.getBytes("UTF-8"));
+                    out.flush();
+                    request.setAttribute(Constants.RESPONSE_BODY_STRING, strResponseJson);
+                    return;
+                }
+
+                long clientTs = Long.parseLong(ts);
+                long serverTs = System.currentTimeMillis();
+                if (clientTs > (serverTs + 600 * 1000) || clientTs < (serverTs - 600 * 1000)) {
+                    // 客户端 和 服务端时间相差正负10分钟以上，被认为是非法请求
+                    SimpleResponse simResponse = new SimpleResponse(ApiError.SYS_ILEGAL_REQUEST, request.getRequestURI());
+                    String strResponseJson = JsonUtil.toJson(simResponse);
+                    OutputStream out = response.getOutputStream();
+                    out.write(strResponseJson.getBytes("UTF-8"));
+                    out.flush();
+                    logger.debug("request URI is {},cts is {},sts is {}", request.getRequestURI(), clientTs, serverTs);
+                    request.setAttribute(Constants.RESPONSE_BODY_STRING, strResponseJson);
+                    return;
+                }
+
+                // 对参数名进行字典排序
+                String[] keyArray = paramMap.keySet().toArray(new String[0]);
+                Arrays.sort(keyArray);
+                // 拼接有序的参数名-值串
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(Constants.APP_ID);
+                for (String key : keyArray) {
+                    stringBuilder.append(key).append(( (String[]) paramMap.get(key) )[0]);
+                }
+                stringBuilder.append(Constants.APP_SECRET);
+
+                String rawRequestBodyString = (String) stringBuilder.toString();
+
+/*
+                if (rawRequestBodyString == null) {
+                    SimpleResponse simResponse = new SimpleResponse(ApiError.SYS_ILEGAL_REQUEST, request.getRequestURI());
+                    String strResponseJson = JsonUtil.toJson(simResponse);
+                    OutputStream out = response.getOutputStream();
+                    out.write(strResponseJson.getBytes("UTF-8"));
+                    out.flush();
+                    logger.debug("request URI is {},rawRequestBodyString = null", request.getRequestURI());
+                    request.setAttribute(Constants.RESPONSE_BODY_STRING, strResponseJson);
+                    return;
+                }*/
+                if (!this.isSignatureLegal(rawRequestBodyString, request)) {
+                    SimpleResponse simResponse = new SimpleResponse(ApiError.SYS_ILEGAL_SIGNATURE, request.getRequestURI());
+                    String strResponseJson = JsonUtil.toJson(simResponse);
+                    OutputStream out = response.getOutputStream();
+                    out.write(strResponseJson.getBytes("UTF-8"));
+                    out.flush();
+                    request.setAttribute(Constants.RESPONSE_BODY_STRING, strResponseJson);
+                    return;
+                }
+            }
+        }else{
+            logger.info("ignore URI [{}]",servletPath);
+        }
+        chain.doFilter(request, response);
+    }
+
+    public void destroy() {
+
+    }
+
+    @SuppressWarnings("deprecation")
+    private boolean isSignatureLegal(String postData, HttpServletRequest request) {
+        String signature = null;
+        try {
+            signature = request.getHeader("sign");
+            if (signature == null) {
+                logger.warn("illegal signature URI is {},request body is {}", request.getRequestURI(), postData);
+                return false;
+            }
+            // 签名最小长度为36
+            if (signature.length() < 36) {
+                logger.warn("illegal signature URI is {},request body is {}", request.getRequestURI(), postData);
+                return false;
+            }
+            // 签名验证通过
+            String sign = org.apache.commons.codec.digest.DigestUtils.shaHex(postData).toUpperCase();
+            logger.info("client signature is {},server signature is {},postData is {}", signature, sign, postData);
+            if (sign.equals(signature)) {
+                logger.info("签名验证通过");
+                return true;
+            } else {// 签名验证失败 记录日志
+                logIllegalSignature(postData, request, signature);
+                return false;
+            }
+
+        } catch (Exception e) {
+            logger.warn("client signature is {},request URI is {},postData is {}", signature, request.getRequestURI(), postData);
+            logger.error("Exception", e);
+            return false;
+        }
+    }
+
+    /**
+     * 记录签名失败的日志
+     *
+     * @param postData
+     * @param request
+     * @param signature
+     */
+    private void logIllegalSignature(String postData, HttpServletRequest request, String signature) {
+        logger.error("illegal signature URI is {},request body is {}", request.getRequestURI(), postData);
+    }
+
+    public IgnoreUriService getIgnoreUriService() {
+        return ignoreUriService;
+    }
+
+    public void setIgnoreUriService(IgnoreUriService ignoreUriService) {
+        this.ignoreUriService = ignoreUriService;
+    }
+
+}
+

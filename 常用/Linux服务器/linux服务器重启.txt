@@ -1,0 +1,19 @@
+1、开启Mysql
+
+service mysqld start
+
+2、开启svn
+
+svnserve -d -r /home/svndata/
+
+3、开启tomcat
+
+
+4、开启nginx服务:service nginx start
+
+
+
+chkconfig --list             显示服务列表
+chkconfig --level 345 mysql on
+
+netstat -na | grep 3306

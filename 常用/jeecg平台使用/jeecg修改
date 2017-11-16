@@ -1,0 +1,14 @@
+jeecg开启默认模糊搜索功能：
+
+1、org.jeecgframework.core.extend.hqlsearch.parse.PageValueConvertRuleEnum.java
+	56行，convert方法内更改为：
+	if(rule==null){
+		rule = HqlRuleEnum.LIKE;
+	}
+2、org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.java
+	146行，installHqlJoinAlias方法内更改为：
+	if(HqlRuleEnum.LIKE.equals(rule)&&(!(value+"").contains("*"))&&!"class java.lang.Integer".contains(type)){
+		value="*%"+String.valueOf(value.toString())+"%*";
+	} else {
+		rule = HqlRuleEnum.EQ;
+	}

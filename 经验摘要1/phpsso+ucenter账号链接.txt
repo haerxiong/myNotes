@@ -1,0 +1,13 @@
+问题一：phpcms开启了uc后，无法登陆。
+原因：接口返回的数据，前后多了空格，导致反序列化不正常，trim后，登录成功。
+
+
+问题二：phpcms注册后，需要在uc登录一次。
+原因：分析其主要原因是phpsso与ucenter通信成功后，XXX_ucenter_member表中的用户已经同步成功但是在XXX_common_member中并没有此用户，所以只要在xxx_common_member中插入此用户就可以了,所以修改discuz/api/uc.php下的synlogin函数就可以了，修改为
+参照http://www.jb51.net/cms/100818.html
+
+
+问题三：phpcms退出后，uc没退出。
+原因：在 phpsso_server/phpcms/modules/phpsso/classes/phpsso.class.php 文件的
+__construct 函数里面， 由于解析出来post[data]为空情况下的直接的exit操作，导致javascript语句无法输出，简单的做法只要注释掉 exit 
+参照http://www.jb51.net/cms/260825.html

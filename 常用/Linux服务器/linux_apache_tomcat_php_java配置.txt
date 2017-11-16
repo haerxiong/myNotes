@@ -1,0 +1,12 @@
+1、安装apache
+yum intall httpd -y
+
+2、简单的Proxy方式整合Apache与Tomcat
+#vi /etc/httpd/conf.d/proxy_ajp.conf
+添加  ProxyPass / ajp://localhost:8009/ 
+重启Apache
+
+3、安装php、php-mysqlnd
+
+4、apache配置多个项目
+http://jingyan.baidu.com/article/5225f26b07605be6fa090890.html 

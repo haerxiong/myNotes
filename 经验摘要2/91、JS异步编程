@@ -1,0 +1,100 @@
+http://www.ruanyifeng.com/blog/2015/04/generator.html
+
+async函数
+	async 函数就是 Generator 函数的语法糖。
+
+	语法糖：添加的某种语法，这种语法对语言的功能并没有影响，但是更方便程序员使用。
+
+	----------------------------------------------------
+	async 函数就是将 Generator 函数的星号（*）替换成 async，将 yield 替换成 await，仅此而已。
+
+	async 函数是非常新的语法功能，新到都不属于 ES6，而是属于 ES7。目前，它仍处于提案阶段，但是转码器 Babel 和 regenerator 都已经支持，转码后就能使用。
+	----------------------------------------------------
+
+Generator 函数
+	是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）。
+	函数名之前要加星号。
+	异步操作需要暂停的地方，都用 yield 语句注明。
+	next 方法的作用是分阶段执行 Generator 函数
+	
+	function* gen(x){
+	  var y = yield x + 2;
+	  return y;
+	}
+
+	var g = gen(1);
+	g.next();
+	g.next();
+
+Thunk函数
+	替换多参数函数，将其替换成单参数的版本，且只接受回调函数作为参数。
+	生产环境的转换器，建议使用 Thunkify 模块。
+
+	用于 Generator 函数的自动流程管理。
+
+	Thunk 函数并不是 Generator 函数自动执行的唯一方案。回调函数可以做到这一点，Promise 对象也可以做到这一点。
+
+co 函数库
+	用于 Generator 函数的自动执行。
+
+	var gen = function* (){
+		var f1 = yield readFile('/etc/fstab');
+		var f2 = yield readFile('/etc/shells');
+	};
+
+	var co = require('co');
+	co(gen).then(function (){
+		console.log('Generator 函数执行完成');
+	})
+
+	使用 co 的前提条件是，Generator 函数的 yield 命令后面，只能是 Thunk 函数或 Promise 对象。
+
+	co 支持并发的异步操作，即允许某些操作同时进行，等到它们全部完成，才进行下一步。
+
+---------------------------------------------------------------------------------------------
+
+曾经的4种方法：
+
+一、回调函数
+
+	function f1(callback){
+		// 耗时任务
+　　}
+	
+	f1(f2);
+
+	缺点：高耦合、不易阅读和维护
+
+
+
+
+二、事件监听
+
+	f1.on('done', f2);
+
+	缺点：不易读，运行流程不清晰
+
+
+
+
+三、发布/订阅
+
+	function f1(callback){
+		// 耗时任务
+		jQuery.publish("done");// 发布者
+　　}
+
+	jQuery.subscribe("done", f2);// 订阅者
+
+	好处：查看"消息中心"，易于监控程序的运行
+
+
+
+四、Promises对象
+
+	f1().then(f2).fail(f3);
+
+	每一个异步任务返回一个Promise对象，该对象有一个then方法，允许指定回调函数。
+
+	Promise 的最大问题是代码冗余，原来的任务被Promise 包装了一下，不管什么操作，一眼看去都是一堆 then，原来的语义变得很不清楚。
+

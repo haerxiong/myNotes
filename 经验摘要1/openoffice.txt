@@ -1,0 +1,23 @@
+﻿安装openoffice
+https://sourceforge.net/projects/openofficeorg.mirror/files/4.1.3/binaries/zh-CN/Apache_OpenOffice_4.1.3_Linux_x86-64_install-rpm_zh-CN.tar.gz
+
+启动服务：
+
+linux
+安装位置/program/soffice --headless --accept="socket,host=127.0.0.1,port=8100;urp;" --nofirststartwizard & 
+
+win
+安装位置/program/soffice -headless -accept="socket,host=127.0.0.1,port=8100;urp;" -nofirststartwizard &
+
+住：不加&，退出命令框后，进程终止。
+
+错误：
+Set DISPLAY environment variable, use -display option
+   or check permissions of your X-Server
+   (See "man X" resp. "man xhost" for details)
+解决方法：
+	安装openoffice-headless
+
+
+swftools安装参照：
+http://www.php230.com/linux-environment-installation-configuration-swftools.html

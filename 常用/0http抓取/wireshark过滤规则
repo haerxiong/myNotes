@@ -1,0 +1,14 @@
+wireshark过滤规则
+	注：区分大小写
+
+1、协议
+http tcp
+
+2、ip
+ip.src ip.dst
+
+3、端口
+tcp.port
+
+4、http请求方法
+http.request.method==POST

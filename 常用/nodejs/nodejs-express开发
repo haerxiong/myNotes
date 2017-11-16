@@ -1,0 +1,9 @@
+1、下载开发框架
+	npm install -g express
+2、下载热部署工具
+	npm install -g nodemon
+3、新建工程
+	express myweb
+4、按提示执行初始化命令
+5、使用nodemon启动
+	nodemon ./bin/www

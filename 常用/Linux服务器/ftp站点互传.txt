@@ -1,0 +1,18 @@
+linux服务器间数据传输
+
+scp a.zip root@172.22.0.2:/home
+
+-------------------------------------------
+
+FlashFXP两个站点对传不能实现解决办法
+Posted on 2012/03/28 by pop	
+
+两个ftp均为linux下的vsftpd，在配置文件vsftpd.conf中，加入如下三行代码，重启服务即可。
+
+vsftp服务器用flashfxp”站点到站点传输失败 “，但是可以从本机硬盘往上传东西，比如先打开一个别人给的ftp,可以先下载到本机硬盘，再打开vsftp，从本机往上传。但是分别在两个窗口同时打开两个ftp，就不能往vsftp直接上传文件，显示“站点到站点传输失败”
+
+解决方法，在vsftpd.conf文件中
+加入
+pasv_promiscuous=YES
+port_promiscuous=YES
+pasv_enable=YES

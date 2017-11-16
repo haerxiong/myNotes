@@ -1,0 +1,27 @@
+window下可借助虚拟机或Cygwin进行操作
+
+cygwin安装
+	下载安装程序
+
+	安装包选择：
+		net下的openssh和openssl两项
+		base下的sed（在Eclipe上编译Hadoop）
+
+	配置环境变量PATH，加上D:\cygwin64\bin
+
+	安装sshd服务
+		启动Cygwin，执行ssh-host-config -y命令
+
+	启动服务
+		net start sshd
+
+
+
+----------------------
+首先是卸载ssh服务。以管理员的权限启动cygwin的终端，在cygwin终端下输入：
+
+net stop sshd
+
+cygrunsrv -E sshd
+
+cygrunsrv -R sshd

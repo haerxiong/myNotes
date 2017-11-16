@@ -1,0 +1,23 @@
+1、用过**框架吗？
+	全文索引引擎工具包
+
+	Lucene不是应用，而是工具包
+
+	数据库索引不是为全文索引设计的，like "%keyword%"时，数据库索引是不起作用的
+
+	Lucene设计很像数据库
+		Document对应Record
+		Field对应Field
+		Hits对应ResultSet
+
+2、简单的用法
+	最基本的用法是：索引的创建、查询，然后是更新、删除。
+
+	各版本用法不同，要注意。
+
+3、详细说明、网上摘要。
+
+4、后续补充(plus)、设计模式
+	如果是在选择全文引擎，现在也许是试试Sphinx的时候了：相比Lucene速度更快，有中文分词的支持，而且内置了对简单的分布式检索的支持
+
+	http://www.chedong.com/tech/lucene.html

@@ -1,0 +1,38 @@
+Redis 数据类型
+	string,hash,list,set,zset
+
+	String字符串
+		set name "lw"
+		get name
+
+	Hash哈希
+
+		hmset user:1 lw 28 176 victorLiu
+		hgetall user:1
+
+	List列表
+		lpush names "lw"
+		lpush names "jack"
+		lpush names "sam"
+		lrange names 0 10
+		lw
+		jack
+		sam
+
+	Set集合
+		sadd key member
+		smembers key
+
+	zset有序集合
+		zadd key score member
+		zrangebyscore key
+
+HyperLogLog基数统计（即count()）
+
+发布订阅
+
+事务
+	multi  //开始
+	exec   //结束
+
+脚本

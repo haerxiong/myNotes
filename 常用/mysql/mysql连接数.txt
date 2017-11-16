@@ -1,0 +1,48 @@
+---------------------------------登录
+链接数据库
+mysql -u root -p;
+---------------------------------授权远程链接
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'huijin' WITH GRANT OPTION;
+flush privileges;
+---------------------------------查看连接
+show processlist;
+show full processlist;
+---------------------------------参数配置
+max_connections 服务器最大连接数	
+Max_user_connections 用户最大连接数
+wait_timeout 非交互连接超时时间，默认28800s(8小时)
+	(如果设置太大，在show processlist时，能看到太多的sleep状态的连接，从而造成too many connections错误)
+interactive_time 交互连接超时时间，默认28800s(8小时)
+
+---------------------------------将ID为10109的连接杀掉
+mysqladmin -u$user -p$passwd -h$host kill $i
+mysqladmin -uroot -ptiancheng2016! -hlocalhost kill 81619
+---------------------------------查看sleep连接列表
+mysqladmin processlist -u$user -p$passwd -h$host | grep -i sleep
+---------------------------------查看sleep连接总数
+mysqladmin processlist -u$user -p$passwd -h$host | grep -i sleep | wc -l
+
+---------------------------------文本分析工具
+|grep	匹配筛选
+|wc		统计
+|awk	安空格分割
+
+查询：
+show variables like "%timeout%";
+修改：
+1、set GLOBAL max_connections=256;//重启后无效
+2、etc/my.cnf下修改相应参数，仅重启后生效
+
+----------------------------------sql分析
+例如：explain select * from goods;
+
+----------------------------------连接池配置
+MaxActive，连接池的最大数据库连接数。设为0表示无限制。
+maxIdle，最大等待连接中的数量。
+每 timeBetweenEvictionRunsMillis 毫秒检查一次，
+断开空闲时间超过 minEvictableIdleTimeMillis 的连接，
+直至连接数到 minIdle 为止。
+----------------------------------查询锁表
+show OPEN TABLES where In_use > 0;
+
+select * from information_schema.processlist a where a.state='Locked';

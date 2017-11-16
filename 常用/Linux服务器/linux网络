@@ -1,0 +1,9 @@
+linux网络
+
+route 查看ip、网关
+traceroute [ip] 路由跟踪
+
+设置DNS
+vi /etc/resolv.conf:
+	nameserver 114.114.114.114 (国内)
+	nameserver 8.8.8.8 (美国)

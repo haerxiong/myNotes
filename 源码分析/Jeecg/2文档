@@ -1,0 +1,27 @@
+*2	JEECG Online Coding开发手册v3.6
+	JEECG Online 表单对外接口v3.6
+	JEECG Online 图表配置使用手册v3.6
+	JEECG Online表单配置权限控制使用手册v3.6
+*3	JEECG UI标签库帮助文档v3.6
+	JEECG 代码生成器用户自定义扩展模板说明文档
+*1	JEECG 开发指南v3.6
+	JEECG 数据权限操作手册V3.6
+	JEECG 自定义表单开发文档V3.6
+
+*开发指南：
+	五、目录结构
+		配置文件：
+			代码生成器配置；DB配置；Spring配置；系统配置。
+		源码目录：
+			core	底层封装
+			tag		自定义标签
+			web/
+				cgreport	报表
+				demo		示例
+				graphreport	图表展示
+				system		系统基础权限、用户
+
+	七、代码生成器
+		配置文件：
+			1、数据源 jeecg_database.properties
+			2、参数	jeecg_config.properties

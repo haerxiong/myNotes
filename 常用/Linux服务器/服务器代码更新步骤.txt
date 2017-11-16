@@ -1,0 +1,26 @@
+步骤：
+
+1、更新svn代码
+	小范围更新
+
+2、本地启动程序，保证可运行
+
+3、准备数据库脚本
+
+4、上传编译后的文件到服务器
+	使用beyond compare3
+	ftp工具flashFxp
+	列出修改文件的清单，然后仅上传这些文件
+
+5、链接服务器，重启服务
+	使用secureCRT
+
+	linux命令：
+		pwd显示当前位置
+		ls显示当前目录下文件
+		cd移动位置
+		ps -ef|grep tomcat	查找"tomcat"进程
+		TOMCAT_HOME/bin/shutdown.sh	关闭tomcat服务
+		kill -9 [进程号]	杀掉进程
+		TOMCAT_HOME/bin/startup.sh	启动tomcat服务
+		tail -f TOMCAT_HOME/logs/catalina.out	看查tomcat日志文件

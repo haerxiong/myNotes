@@ -1,0 +1,6 @@
+查看远程branch
+git branch -a
+
+删除远程分支
+在Git v1.7.0 之后，可以使用这种语法：
+git push origin --delete <branchName>

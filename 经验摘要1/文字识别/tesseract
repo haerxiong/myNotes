@@ -1,0 +1,16 @@
+备注：
+	1、官网下载tesseract.exe安装包
+	2、默认可以使用命令直接识别图片，但是不准确
+	3、下载训练工具进行训练
+	4、配置环境变量PATH、TESSDATA_PREFIX，方便cmd直接使用
+
+识别命令：
+tesseract test.jpg output -l eng
+生成box文件
+tesseract num.font.exp0.tif num.font.exp0 batch.nochop makebox
+
+教程：
+http://www.cnblogs.com/cnlian/p/5765871.html
+
+训练工具
+jTessBoxEditor

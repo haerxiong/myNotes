@@ -1,0 +1,14 @@
+微服务所需要的基础设施包括:
+	
+	虚机环境或者docker。
+
+	版本控制软件。现在一般用git来实现，不用SVN。
+
+	代码审核软件。gitlab是优先考虑的codereview软件。
+
+	集成发布。jenkins
+
+	系统监控。zabbix
+
+	日志分析。ELK
+

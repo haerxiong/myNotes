@@ -1,0 +1,38 @@
+spring配置文件
+
+答：-dao配置了数据库操作；
+	-base配置了基础工具；
+	-cache配置了三种缓存机制，本系统使用了ehcache，可切换。
+	-manage配置了后台service层扫描路径，加载了缓存管理类。
+	-front同上，为前台相关。
+
+方向：详细研究。
+
+1、-dao.xml
+	配置文件；数据源；mybatis工厂；事务声明；
+	tx:advice、aop:config；
+	百度得知：tx:advice统一对事务进行了建议配置，省略了transaction
+
+2、-base.xml
+	加载BaseDao，实际是mybatis/SqlSession的二次封装；
+	加载net.jeeshop.core.freemarker.front.FreemarkerHelper；生成模板的帮助类，静态化；
+
+3、-cache.xml
+	配置文件；
+	加载systemManager，配置为ehcache
+	加载缓存相关bean，三种缓存方式：
+		net.jeeshop.core.cache.SimpleCacheProvider
+		net.jeeshop.core.cache.EhcacheCacheProvider
+		net.jeeshop.core.cache.RedisCacheProvider
+	加载redis相关：
+		org.springframework.data.redis.connection.jedis.JedisConnectionFactory
+		org.springframework.data.redis.core.RedisTemplate
+		redis.clients.jedis.JedisPoolConfig
+
+4、-manage.xml
+	scan扫描net.jeeshop.services.manage；
+	加载net.jeeshop.core.oscache.ManageCache；
+
+5、-front.xml
+	scan扫描net.jeeshop.services.front；
+	加载net.jeeshop.core.oscache.FrontCache；

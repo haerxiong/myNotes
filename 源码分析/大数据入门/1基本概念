@@ -1,0 +1,23 @@
+生产平台Linux、开发环境Win
+
+开发环境：
+	Sun Java
+	ssh
+	Cygwin
+
+hadoop集群三种启动方式：
+	单机模式、单机伪分布式、完全分布式
+
+hadoop集群：
+	master:NameNode JobTracker
+	slaves:DataNode TaskTracker
+
+	启动、停止：
+		在分配的NameNode上，运行下面的命令启动HDFS
+		在分配的JobTracker上，运行下面的命令启动Map/Reduce
+
+Hadoop是什么
+	一个开源系统，包括：并行计算模型Map/Reduce，分布式文件系统HDFS，分布式数据库HBase，已经其他项目：ZooKeeper、Pig、Chukwa、Hive、Mahout、flume等。
+
+Mapreduce是什么
+	一种编程模型、方法、理论。

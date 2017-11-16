@@ -1,0 +1,5 @@
+1、增加datagrid-drag.js
+
+2、修改BaseTag.java，增加datagrid-drag.js引用
+
+3、修改DataGridTag.java，增加datagrid-drag.js内方法的调用

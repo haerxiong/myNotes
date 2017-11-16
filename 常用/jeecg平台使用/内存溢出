@@ -1,0 +1,19 @@
+内存溢出
+
+JVM管理两种类型的内存，堆和非堆。
+	堆(heap)	开发人员用的	JVM启动时创建
+	非堆		JVM自己用的		存放类的信息
+
+	如果web app用了大量的第三方jar或者应用有太多的class文件
+	恰好MaxPermSize设置较小
+
+	GC不会在主程序运行期对PermGen space进行清理
+
+	jvm默认的大小(4M)
+
+修改catalina.sh，在“echo "Using CATALINA_BASE: $CATALINA_BASE"”上面加入以下行：
+JAVA_OPTS="$JAVA_OPTS -server -Xms800m -Xmx800m -XX:PermSize=128M -XX:MaxNewSize=256m -XX:MaxPermSize=256m"
+
+
+默认空间(即-Xms)是物理内存的1/64
+最大空间(-Xmx)是物理内存的1/4

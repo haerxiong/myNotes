@@ -1,0 +1,6 @@
+对话框打开时，zindex不够大，导致被左侧菜单遮挡
+
+function createwindow(title, addurl,width,height) {
+	zIndex: getzIndex()
+改为
+	zIndex: Number.parseInt(getzIndex())+10

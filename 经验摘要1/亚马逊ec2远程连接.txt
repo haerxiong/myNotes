@@ -1,0 +1,10 @@
+SecureCRT是windows下一款连接linux服务器的优秀软件,通过它可以方便的操作多台服务器,如果是自己的服务器,知道帐号密码, 很轻松就能连上服务器,AWS的EC2服务器不是采用用户名加密码的认证方式,而是用密钥来认证,在创建instance时,会提示使用以前(如果存在) 或创建一个新的key pair,同时会提示下载一个xxx.pem的密钥文件到本地硬盘,在Linux下使用terminal登陆aws的ec2很容易,例如:ssh -i xxx.pem ec2-user@public dns,用户名固定是ec2-user,注意xxx.pem的权限是600,public dns在web的管理后台选中某个instance,在Description可以找到,但是SecureCRT中不能直接使用xxx.pem,需要借助 linux系统创建一个xxx.pem对应的xxx.pem.pub文件,具体操作如下:
+
+1 上传文件到linux系统下,确保其权限是600, 命令 chmod 600 xxx.pub
+2 改写密钥格式为 OpenSSH,如果询问passphrase可以留空（直接回车）命令 ssh-keygen -p -f xxxx.pem
+3 生成公密钥 .pub 文件 命令 ssh-keygen -e -f xxxx.pem > xxxx.pem.pub
+
+至此,就创建了在SecureCRT中所使用的验证文件.
+
+在SecureCRT选连接->新建会话->协议选择ssh2 下一步 -> 主机名填写public dns 下一步,用户名填写ec2-user 下一步 -> 完成.
+在连接的列表中找到刚创建的连接,右键属性,左边树中选择SSH2,然后选择右边鉴权中公钥,点属性,在出来的对话框中选择使用身份或证书文件,通过浏览 文件指定到刚在Linux下生成的文件即可.注意xxx.pem.pub和xxx.pem要在同一文件夹下,而且公钥的文件名一定要是下载下来的文件名后 加.pub,否则会提示找不到私钥的.

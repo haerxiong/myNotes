@@ -1,0 +1,9 @@
+解决问题：内容修改页专题必填bug
+试用版本：jeecmsv7开源版
+文件说明：ContentMngImpl.class位于WEB-INF\classes\com\jeecms\cms\manager\main\impl下
+
+
+
+edit.html
+
+jeecms_sys/content/

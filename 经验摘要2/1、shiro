@@ -1,0 +1,46 @@
+一、介绍
+
+	shiro是个安全框架，用来完成RDBC“身份验证”、“授权”、“加密”、“会话管理”；
+
+	特点：手机应用和企业应用都可使用。
+
+	以自定义实现realm [rɛlm] 类接口的方式，让我们自己实现身份认证的逻辑。
+
+二、如何应用
+
+	官方quick-start:
+	
+		配置好后，可以获取当前“用户”（带引号是因为，subject代表了更多的东西）
+			Subject currentUser = SecurityUtils.getSubject();
+
+		存取用户信息，Session不需要HTTP环境
+			Session session = currentUser.getSession();
+			
+		首次登陆
+			UsernamePasswordToken token = new UsernamePasswordToken("user_name", "password");
+		    token.setRememberMe(true);
+		    currentUser.login(token);
+
+		鉴权
+			currentUser.hasRole( "schwartz" )	// 角色
+			currentUser.isPermitted( "lightsaber:weild" )	// 实体:方法
+			currentUser.isPermitted( "winnebago:drive:eagle5" )		// 实体:方法:级别
+
+		登出
+			currentUser.logout();
+
+	于spring中配置
+		1、web.xml中配置Filter
+			DelegatingFilterProxy
+		2、spring配置文件中，也可以单独写，具体参考百度
+			配置自定义的realm类，其中需要我们自己实现验证的逻辑。
+		3、页面中使用如下标签包裹相应内容
+			<shiro:hasPermission name="gold:basicUser:edit"></shiro:hasPermission>
+
+	继承AuthorizingRealm的自定义实现。
+		doGetAuthenticationInfo 身份认证回调-----用户名、密码会传入进行验证
+		doGetAuthorizationInfo  授权查询回调
+
+三、附加
+	接口驱动
+	同类型的还有spring-security。

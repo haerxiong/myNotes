@@ -1,0 +1,16 @@
+http://blog.chinaunix.net/xmlrpc.php?r=blog/article&id=4781653&uid=301743
+
+第一步: 去除不需要加载的模块
+Window --> Preferences -->General --> Startup and Shutdown
+第二步：取消MyEclipse的拼写检查
+Window --> Preferences -->General --> Editors --> Text Editors --> Spelling
+第三步：取消MyEclipse启动时的自动验证项目配置文件
+Window --> Preferences -->MyEclipse --> Validation
+除XML和JSF外，其它的都可以不选。
+第五步：关闭Maven自动下载
+Window --> Preferences -->MyEclipse --> Maven4MyEclipse
+第六步：更改JSP默认打开的方式
+Window --> Preferences -->General --> Editors --> File Associations
+第七步：更改文件编码为UTF-8
+Window --> Preferences -->General --> Workspace
+Window -->Preferences --> MyEclipse --> Files and Editors --> JSP，编码也改为UTF-8。

@@ -1,0 +1,15 @@
+查看linux系统位数： getconf LONG_BIT
+查看linux系统版本： lsb_release -a
+查看linux内核版本： cat /proc/version
+查看磁盘空间：df -lh
+查看是否安装应用包：rpm -qa|grep nginx
+查看文件夹占用空间 du -csh pathname
+服务目录: /etc/init.d/
+
+查找目录下的所有文件中是否含有某个字符串 
+find .|xargs grep -ri "1000" 
+查找目录下的所有文件中是否含有某个字符串,并且只打印出文件名 
+find .|xargs grep -ri "userfiles" -l 
+
+将目录/modules下面所有文件中的zhangsan都修改成lisi，这样做：
+sed -i "s/zhangsan/lisi/g" `grep zhangsan -rl /modules`

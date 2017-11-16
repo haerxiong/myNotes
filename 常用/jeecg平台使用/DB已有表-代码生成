@@ -1,0 +1,69 @@
+对于数据库中已存在的表，想要在jeecg中生成代码，可先执行以下sql，省去了手工录入表信息过程。
+
+
+-- 插入表
+INSERT into cgform_head(id, content, table_name,
+is_checkbox,is_dbsynch,is_pagination,is_tree,
+jform_pk_type, jform_type, jform_version, querymode,tree_id_fieldname,jform_category,create_date)
+SELECT UUID(),'nideshop_ad','nideshop_ad',
+'N','Y','Y','N','UUID',1,1,'single','id','bdfl_ptbd',SYSDATE()
+from dual LIMIT 1;
+
+-- 插入表字段
+insert into cgform_field(id,field_default,field_length,field_name,content
+,field_must_input,is_key,is_null,is_query,is_show,is_show_list
+,length,query_mode,show_type,type,table_id,create_date,order_num,point_length)
+select uuid(),c.column_default as field_default,120,c.column_name as field_name,c.column_name
+,'N', case c.column_key when 'PRI' then 'Y' else 'N' end as is_key, left(c.is_nullable,1) as is_null,'Y','Y','Y'
+, case when c.character_maximum_length < 500 then c.character_maximum_length else 32 end as length, 
+'single', case c.data_type when 'datetime' then 'date' else 'text' end as show_type,
+case   
+	when instr(c.data_type,'date')>0 then 'Date'
+	when instr(c.data_type,'int')>0 then 'int'
+	when instr(c.data_type,'decimal')>0 then 'BigDecimal'
+else 'string' end as type, h.id,SYSDATE(),c.ordinal_position,0
+from information_schema.columns c ,cgform_head h
+where c.table_name='nideshop_ad' and c.table_name = h.table_name;
+
+
+
+
+-----------批量导入，使用以下过程-------------
+CREATE DEFINER=`root`@`%` PROCEDURE `install2AutoGenerate`( 
+    in tname_pattern varchar(50)
+)
+begin
+	declare tname varchar(50);
+	declare cur cursor for(
+		SELECT ts.TABLE_NAME from information_schema.`TABLES` ts WHERE ts.TABLE_NAME like tname_pattern);
+	DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET tname = NULL;
+	OPEN cur;
+			FETCH cur INTO tname;
+			while (tname is not null) DO
+					
+					INSERT into cgform_head(id, content, table_name,
+					is_checkbox,is_dbsynch,is_pagination,is_tree,
+					jform_pk_type, jform_type, jform_version, querymode,tree_id_fieldname,jform_category,create_date)
+					SELECT UUID(),tname,tname,
+					'N','Y','Y','N','UUID',1,1,'single','id','bdfl_ptbd',SYSDATE()
+					from dual LIMIT 1;
+
+					insert into cgform_field(id,field_default,field_length,field_name,content
+					,field_must_input,is_key,is_null,is_query,is_show,is_show_list
+					,length,query_mode,show_type,type,table_id,create_date,order_num,point_length)
+					select uuid(),c.column_default as field_default,120,c.column_name as field_name,c.column_name
+					,'N', case c.column_key when 'PRI' then 'Y' else 'N' end as is_key, left(c.is_nullable,1) as is_null,'Y','Y','Y'
+					, case when c.character_maximum_length < 500 then c.character_maximum_length else 32 end as length, 
+					'single', case c.data_type when 'datetime' then 'date' else 'text' end as show_type,
+					case   
+						when instr(c.data_type,'date')>0 then 'Date'
+						when instr(c.data_type,'int')>0 then 'int'
+						when instr(c.data_type,'decimal')>0 then 'BigDecimal'
+					else 'string' end as type, h.id,SYSDATE(),c.ordinal_position,0
+					from information_schema.columns c ,cgform_head h
+					where c.table_name=tname and c.table_name = h.table_name;
+
+					FETCH cur into tname;
+			end while;
+	CLOSE cur;
+END

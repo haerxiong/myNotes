@@ -1,0 +1,7 @@
+Ehcache
+	它的本质就是将原本只能存储在内存中的数据通过算法保存到硬盘上，再根据需求依次取出。你可以把Ehcache理解为一个Map<String,Object>对象，通过put保存对象，再通过get取回对象。
+
+Filter是过滤器，interceptor是拦截器。前者基于回调函数实现，必须依靠容器支持。因为需要容器装配好整条FilterChain并逐个调用。后者基于代理实现，属于AOP的范畴。
+
+火焰图
+	是基于linux perf命令 结果产生的 SVG 图片，用来展示 CPU 的调用栈。

@@ -1,0 +1,35 @@
+﻿dcloud-app打包
+
+Android：
+	生成签名，JDK_HOME/jre/bin
+
+	D:\work\Java\jdk1.7.0_17\bin\keytool -genkey -alias hafa_b -keyalg RSA -validity 40000 -keystore D:\tmp\25哈法\打包\hafa_b.keystore
+
+-------------------------------------------------
+
+教程：http://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/38
+
+离线打包SDK目录说明
+	HBuilder-Hello：离线打包演示应用；
+	libs：SDK库文件目录；
+	Feature列表.xls：Android平台各扩展Feature API对应的permission；
+	Readme.txt：版本说明文件。
+
+配置编译工程
+	导入演示应用HBuilder-Hello工程
+	从SDK目录中拷贝要使用的feature库到工程libs目录
+		注意：如果不需要使用到HTML5Plus API，则仅需要pdr.jar包即可。
+	配置应用的权限：
+		参考“Feature列表.xls”文档，AndroidManifest.json
+	配置其它第三方库的数据
+		AndroidManifest.json
+	配置应用的包名及版本号
+		AndroidManifest.json
+	配置应用名称
+		res -> values -> strings.xm
+	配置应用图标和启动界面
+		res -> drawable-XXX目录
+	更新应用资源
+		assets -> apps 目录
+	配置应用信息
+		assets -> data下的control.xml文件 manifest.json中的id名称

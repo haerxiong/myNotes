@@ -1,0 +1,3 @@
+tomcat内存不足
+catalina.sh第一行增加
+JAVA_OPTS='-Xms512m -Xmx1024m'

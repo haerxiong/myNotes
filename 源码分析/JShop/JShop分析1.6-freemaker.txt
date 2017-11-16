@@ -1,0 +1,66 @@
+freemarker的配置及使用。
+
+方向：spring配置文件中的freeMarkerHelper；springMVC配置文件；Index.ftl。
+
+1、查看freeMarkerHelper
+	包含了productService、newsService，提供一些业务相关的静态化方法。
+
+2、springMVC配置文件
+	包含内容：
+		自动扫描net.jeeshop.web.action；
+		数据格式转化conversionService，如数字、日期、json；MappingJacksonHttpMessageConverter对应@ResponseBody;
+		静态资源路径/resource/**、/attached/**
+		国际化messageSource
+		freeMarker配置
+			全局变量：
+				systemManager	front.SystemManager(常用缓存数据)
+				systemSetting	front.SystemSetting（系统配置）
+				currentUser  	User
+				currentAccount	front.Account
+				checkPrivilege	PrivilegeChecker
+				i18nParser		MessageLoader
+				keyValueParser	KeyValueHelper
+				shoppingCart	CartInfo
+		视图解析器jsp、freeMarker、multipartResolver
+
+3、查看index.ftl
+	<#import "/resource/common_html_front.ftl" as html/>
+	<#import "/indexMenu.ftl" as menu/>
+	<#import "/index_productList.ftl" as indexProduct/>
+
+
+	common_html_front.ftl是主体，内容包括：
+	<html>
+		<head>
+			assign responsive
+			assign non_responsive2
+			assign style
+			<script>
+				var basepath,staticpath,non_responsive2,login,currentUser;
+			</script>
+			...
+			css、js
+			...
+			common_css.ftl
+		</head>
+		<body>
+			<#nested/>----------------(index.ftl)
+			foot.ftl
+			index_superSlide_js.ftl
+		</body>
+	</html>
+
+	index.ftl是内容，包括：
+		indexMenu.ftl
+		<div class="container" >
+			<!-- 左侧导航栏、热卖商品、文章、事项 -->
+			catalog_superMenu.ftl
+			productlist_left_picScroll.ftl
+			<!-- 右侧。滚动图片、新闻活动、首页商品展示 -->
+			index_center_slide.ftl
+			index_notice_slide.ftl
+			index_productList.ftl queryType="hot" productList=systemManager().hotProducts
+			index_productList.ftl queryType="sale" productList=systemManager().saleProducts
+			index_productList.ftl queryType="newest" productList=systemManager().newProducts
+		</div>
+	

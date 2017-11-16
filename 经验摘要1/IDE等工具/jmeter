@@ -1,0 +1,11 @@
+设置参数：
+CSV Data Set Config
+Filename->C:\Users\haer\Desktop\data.txt
+Variable Names->name,pwd
+
+引用->${name}  ${pwd}
+
+HTTP Cookie 管理器    用于session关联
+响应断言              用于语言结果
+Summary Report        用于查看总体结果
+查看结果树            用于查看详细结果

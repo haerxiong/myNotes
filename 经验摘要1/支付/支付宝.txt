@@ -1,0 +1,44 @@
+1、准备材料：法人手机、身份证，公司座机、营业执照、委托书盖章拍照、银行卡信息
+
+2、注册支付宝商家版。
+
+3、支付宝应用申请，签约合作，需要app描述文档及截图。
+
+4、使用openssl生产公钥、秘钥，并公钥在支付宝中设置。https://b.alipay.com/order/pidAndKey.htm
+
+5、修改程序中参数，密钥的PKCS8格式，配置在程序中，支付宝公钥是统一的不变的。
+	异步通知、回调地址在代码中配置，是从http:开始的全路径。
+  回调地址止于文件名或路径名，不能在后面再加?XX=XXX&xx=xxx之类的参数列表
+
+数据库表
+
+CREATE TABLE `payback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `notify_time` datetime DEFAULT NULL COMMENT '通知时间',
+  `out_trade_no` varchar(256) DEFAULT NULL,
+  `notify_type` varchar(256) DEFAULT NULL,
+  `notify_id` varchar(256) DEFAULT NULL,
+  `sign_type` varchar(256) DEFAULT NULL,
+  `sign` varchar(256) DEFAULT NULL,
+  `subject` varchar(256) DEFAULT NULL,
+  `payment_type` varchar(256) DEFAULT NULL,
+  `trade_no` varchar(256) NOT NULL,
+  `seller_id` varchar(256) DEFAULT NULL,
+  `seller_email` varchar(256) DEFAULT NULL,
+  `buyer_id` varchar(256) DEFAULT NULL,
+  `buyer_email` varchar(256) DEFAULT NULL,
+  `total_fee` varchar(256) DEFAULT NULL,
+  `quantity` varchar(256) DEFAULT NULL,
+  `price` varchar(256) DEFAULT NULL,
+  `body` varchar(256) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_payment` datetime DEFAULT NULL,
+  `is_total_fee_adjust` varchar(256) DEFAULT NULL,
+  `use_coupon` varchar(256) DEFAULT NULL,
+  `discount` varchar(256) DEFAULT NULL,
+  `refund_status` varchar(256) DEFAULT NULL,
+  `gmt_refund` datetime DEFAULT NULL,
+  `trade_status` varchar(256) DEFAULT NULL,
+  `bak` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8

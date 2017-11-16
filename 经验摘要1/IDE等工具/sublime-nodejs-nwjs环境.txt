@@ -1,0 +1,40 @@
+1、sublime test3插件
+	插件安装方法：
+	1）在线安装：使用Package Control组件安装
+		a、按Ctrl+`调出console
+		b、粘贴以下代码到底部命令行并回车：
+			import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+		c、重启Sublime Text 3
+		d、如果在Perferences->package settings中看到package control这一项，则安装成功。
+	2）手动安装（无网络）
+		a、点击Preferences > Browse Packages打开插件安装目录
+		b、下载插件如“Package Control.sublime-package”，放到此文件夹下
+		c、重启
+
+2、nodejs模块
+	nodejs模块安装，直接拷贝工程目录下node_modules相应文件夹即可。
+
+3、sublime-nodejs插件
+	1）下载Nodejs插件，下载地址为：https://github.com/tanepiper/SublimeText-Nodejs
+	下载zip压缩包后解压，文件名改为Nodejs
+
+	2）打开Sublime Text3，点击菜单“Perferences” =>“Browse Packages”打开“Packages”文件夹，并将第1部的Nodejs文件夹剪切进来
+
+	3）打开文件“Nodejs.sublime-build”，将代码 "encoding": "cp1252" 改为 "encoding": "utf8" ，将代码 "cmd": ["taskkill /F /IM node.exe & node", "$file"] 改为 "cmd": ["node", "$file"] ，保存文件
+
+	4）打开文件“Nodejs.sublime-settings”，将代码 "node_command": false改为 "node_command": "D:\\Program Files\\nodejs\\node.exe" ，将代码 "npm_command": false 改为 "npm_command": "D:\\Program Files\\nodejs\\npm.cmd" ，保存文件
+
+	5）编写一个测试文件test.js，按“ctrl+B"运行代码
+
+4、nwjs安装
+	newjs分sdk版、正式版，sdk版含F12调试工具。
+
+5、sublime-nwjs插件
+	1）点击菜单“Perferences” =>“Browse Packages”打开“User”文件夹
+	2）新建文件“nw.sublime-build”如下
+	{
+	    "cmd": ["C:/Users/haer/Desktop/node-webkit/nwjs-sdk-v0.17.1-win-x64/nw.exe", "--enable-logging", "${project_path:${file_path}}"],
+	    "working_dir": "${project_path:${file_path}}",
+	    "path": "C:/Users/haer/Desktop/node-webkit/nwjs-sdk-v0.17.1-win-x64/",
+	    "shell": true
+	}

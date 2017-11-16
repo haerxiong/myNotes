@@ -1,0 +1,35 @@
+上传文件的过程：
+	1、Client通过RPC向NameNode发送请求
+	2、NameNode查看哪个DataNode空闲，返回给Client
+	3、Client开始想DataNode写数据
+	写数据具体是：
+		DataNode向NameNode申请一个区块的地址
+		NameNode批准后，Client写第一个，
+		写满后，看是否满足副本数量，
+		若不满足，则申请相邻DataNode的一个区块地址，并水平传送，依次直至满足，
+		然后，由最后一个DataNode向前一个DataNode报告，
+		最后第一个DataNode报告NameNode可以开始写第二个节点的数据，
+		Client重复上述动作，写第二个。
+
+
+Distributed File System
+	量大，一个电脑管理的磁盘不够用；
+	共享，多用户、多电脑共享；
+	透明，感觉像一台电脑；
+	容错，数据备份；
+	HDFS适用于：一次写入多次查询，不适合小文件。
+
+HDFS包括：
+	NameNode、DataNode、Secondary NameNode
+
+	NameNode:
+		edits:日志
+		fsimage:元数据备份
+	Secondary NameNode：
+		时间达到3600秒时，向edits写入的数据达64M时，会从NameNode下载fsimage和edits文件
+
+相关命令
+	查看系统中根目录文件
+		hadoop fs -ls /
+	上传文件到根目录
+		hadoop fs -put /home/a_down/jdk1.7.zip /

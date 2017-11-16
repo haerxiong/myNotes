@@ -1,0 +1,22 @@
+一、查看web.xml
+	1、无listener、servlet，只有3个filter。
+	2、观察及百度得知：关键词是jfinal、druid。
+	3、补充知识：
+		（1）Druid是一个JDBC组件。http://www.oschina.net/p/druid/
+		（2）JFinal 是基于Java 语言的极速 web 开发框架。
+
+二、JFinal
+	1、入门。手册http://download.jfinal.com/upload/2.2/jfinal-2.2-manual.pdf
+	2、快速上手，查看helloWorld，了解基本知识。
+	3、得知重要参数，configClass：本项目中是net.loyin.cfg.JFWebConfig
+	4、查看net.loyin.cfg.JFWebConfig，继承自抽象类com.jfinal.config.JFinalConfig
+		实现了一下方法：
+			1)configConstant。常量。
+				包括：devmode、错误页、国际化、maxpostsize
+			2)configRoute。路由。
+				包括：MyRoutesUtil（类似自动扫描）
+			3)configPlugin。插件。
+				包括：数据库相关、定时任务、工作流
+			4)configInterceptor。拦截器。
+			5)configHandler。处理器。
+			6)afterJFinalStart

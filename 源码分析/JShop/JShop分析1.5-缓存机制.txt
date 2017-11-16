@@ -1,0 +1,53 @@
+缓存系统
+
+答：使用了ehcache，系统启动时，先对一些常用稳定数据进行加载。存疑：缓存何时刷新？
+
+方向：哪三种缓存？ehcache、redis基础知识
+
+1、哪三种缓存？
+	根据srping配置文件*-cache.xml，预测三种缓存为：simple、ehcache、redis。
+	推测：simple为自己实现的方式。
+
+2、net.jeeshop.core.cache.SimpleCacheProvider
+	查看类注释：'simple cache provider use map'，
+	得知：SimpleCacheProvider提供map为基础的缓存机制。
+	ctrl+T查看CacheProvider接口，
+	得知：三种缓存都是实现了CacheProvider接口，内含存、取、删、清空4种对缓存的操作。
+
+3、ehcache
+	查看EhcacheCacheProvider，
+	从包名得知：CacheManager、Cache是本缓存机制的关联类。此外，还有一个spring的Resource类。
+	查看方法，除get/set方法及CacheProvider接口方法外，仅剩postCacheManager方法。
+	
+	百度得知：'EhCache 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。'
+
+	查看4种缓存操作及postCacheManager方法。产生疑问，没有构造方法？如何初始化的？查看spring配置文件，
+	得知：spring的Resource为ehcahe的配置文件对象。
+	猜测postCacheManager方法做了初始化的操作，观察发现@PostConstruct注解，
+	得知：postCacheManager是构造方法之后执行的，对cacheManager、cache进行了初始化。
+
+	其他方法都很简单，查看ehcache配置文件，此时需要求助度娘~。。。
+	得知：ehcache提供了内存、磁盘两级缓存，支持配置参数，以及分布式缓存。
+
+	总结：EhcacheCacheProvider对ehcache的cache、cacheManager做了二次封装。
+
+4、redis
+	从spring配置中就看出，redis要更麻烦，bean依赖关系为：
+	redisCacheProvider需要org.springframework.data.redis.core.RedisTemplate
+		redisTemplate需要org.springframework.data.redis.connection.jedis.JedisConnectionFactory
+			jedisConnectionFactory需要redis.clients.jedis.JedisPoolConfig及相关redis配置参数
+	查看redisCacheProvider，
+	得知：redisCacheProvider对redis的RedisTemplate做了二次封装。
+
+	百度得知：'Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库'
+
+	redis是大数据相关的非关系型数据库，即nosql。基本用不上，先不做研究。
+
+5、系统中缓存的运用。
+	由spring配置文件-cache.xml，
+	得知：系统缓存功能由SystemManager提供，实现方式为ehcache。SystemManager针对系统业务逻辑对不同模块的缓存进行了再一次的封装。
+	init：system.properties；快递manageExpressMap
+	缓存：类别catalogs、产品products、文章目录catalogsArticle、属性attrs、文章news、会员等级AccountRank、邮件模板notifyTemplate、热门搜索产品hotSearchProduct、支付宝卖家账号alipay、评论插件代号commentTypeCode、热门查询hotqueryList、促销商品、友情链接、浏览过的商品、特价商品、门户滚动图、系统通知、省市区、物流、广告、阿里oss、活动、积分商城、团购
+
+	查看缓存方法的调用，即get方法，ctrl+shift+G。疑问：何时调用缓存？何时直接查询？发现调用get方法的地方没有做这些判断或分支。联想到listener中由Loadcache的方法，猜测与此相关，可能缓存是统一加载，定时刷新的机制，查看set方法发现联系，
+	得知：本系统启动时，加载一些缓存，然后按相关配置定时或手动刷新。

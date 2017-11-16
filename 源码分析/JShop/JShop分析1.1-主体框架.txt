@@ -1,0 +1,27 @@
+﻿项目的主体框架是什么？
+结果：springMVC spring myBatis urlRewrite
+
+1、jshop也叫jeeshop
+
+2、查找数据库配置
+	ctrl+H全局搜索"com.mysql.jdbc.Driver"，
+	得知：数据库配置文件为:conf.properties
+	全局搜索此文件名，
+	得知：配置文件载入方式为<context:property-placeholder location="classpath:conf.properties"/>
+
+3、查看系统架构
+	查看web.xml，使用design视图查看，更直观。
+	比较重要的有listeners、filter、servlet、contextParams，加载顺序listeners>filter>servlet依次查看。
+	查看listeners，
+	得知：org.springframework.web.context.ContextLoaderListener为Spring框架，留意有一自定义监听器，可能加载了一些全局变量。
+	查看filter,
+	得知：使用了urlRewrite及encoding，encoding常见，urlRewrite是伪静态框架，一般可从包名得知是否为第三方框架。
+	查看servlet，
+	得知：使用了springMVC框架。
+	至此，可探知三层框架中的两个，数据层一般从spring配置文件中可得知。
+	spring配置文件，从contextParams可得知。
+	查看spring配置文件，一般都有id=dataSource的bean，而数据层框架需要数据源bean，因此，查看有哪些bean调用了dataSource，
+	得知：org.mybatis.spring.SqlSessionFactoryBean由包名得知持久层框架为mybatis。
+	根据以上方法，可以了解一个陌生javaWeb系统的组成。
+
+

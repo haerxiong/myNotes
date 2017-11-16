@@ -1,0 +1,40 @@
+http访问地址的配置是怎样的？
+
+答：urlrewrite做了静态化处理，实际就是对请求url的重定向，具体见其配置文件的规则。
+
+方向：
+	找前后台入口；看filter；看urlrewrite配置
+
+1、找前后台入口
+	前台很简单，确认好工程名即可，我的是/jshop
+	后台ctrl+H在*Action.java中搜索login，发现后台地址为/jshop/manage/user/login
+	查看数据库表，知用户名密码为admin 123456
+
+2、详细观察web.xml
+	ContextParams，配置系统常量。Spring配置文件位置。
+	Listener。查看systemListener，得知：加载了缓存。
+	Filter。查询百度，知urlrewrite配置文件默认为WEB-INF/urlrewrite.xml
+		urlrewrite:
+			产品详细详细
+			请求prouct中的方法/product/
+			购物车操作/product/
+			问卷调查/cart/
+			会员中心/question/
+			订单管理/order/
+			根据商品关键字，搜索商品/product/search
+			根据目录ID加载产品列表信息/catalog/	
+			根据产品属性ID加载产品列表信息/catalog/attr/
+			加载热门、特价、最新的商品列表信息/special/
+			加载促销活动的商品列表/activity/
+			新闻列表/news/
+			根据新闻ID获取指定新闻明细内容/news/
+			转到帮助中心/help/
+			<!-- 此优先级是最低的,直接转发 -->
+		    <rule>
+		        <from>/([a-zA-Z]+).html</from>
+		        <to last="true">/$1.jsp</to>
+		    </rule>
+	Servlet。
+		uploadify图片上传
+		validateImage验证码图片request.getSession().setAttribute("validateCode",...);
+	pager-taglib.tld

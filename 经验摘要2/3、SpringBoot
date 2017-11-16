@@ -1,0 +1,13 @@
+1、用过**框架吗？
+	SpringBoot致力于快速开发，设计目的是简化新Spring应用。
+	SpringBoot遵循“约定优于配置”原则，将原来SSH或SSM这些基于Spring的架构配置统一处理。
+
+2、简单的说下配置or搭建方法
+	配置文件统一在application-*.properties中
+
+	使用@SpringBootApplication注解，以main方法的方式或maven插件方式即可运行web程序。
+
+3、详细说明、网上摘要。
+	从最根本上来讲，Spring Boot就是一些库的集合
+
+4、后续补充(plus)、设计模式
