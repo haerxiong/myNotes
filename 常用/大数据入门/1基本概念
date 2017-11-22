@@ -17,7 +17,10 @@ hadoop集群：
 		在分配的JobTracker上，运行下面的命令启动Map/Reduce
 
 Hadoop是什么
-	一个开源系统，包括：并行计算模型Map/Reduce，分布式文件系统HDFS，分布式数据库HBase，已经其他项目：ZooKeeper、Pig、Chukwa、Hive、Mahout、flume等。
+	一个开源系统，包括：并行计算模型Map/Reduce，分布式文件系统HDFS，分布式数据库HBase，其他项目：ZooKeeper、Pig、Chukwa、Hive、Mahout、flume等。
+
+	Hive
+		hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。
 
 Mapreduce是什么
 	一种编程模型、方法、理论。

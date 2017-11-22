@@ -1,0 +1,31 @@
+一、在微服务中，使用什么协议来构建服务体系？RPC vs Restful
+	RPC：			以Apache Thrift为代表的二进制RPC
+	Restful：		以Spring Cloud为代表所支持的Restful 协议
+
+	业内对微服务的实现，基本是确定一个【组织边界】，在该边界内，使用RPC; 边界外，使用Restful。
+	这个【组织边界】，可以是业务、部门，甚至是全公司。
+
+二、 RPC技术选型
+	Apache Thrift 		高性能传输协议RPC
+	Dubbo		  		略差于Thrift的RPC，自带服务治理。停止更新了。
+	Google Protobuf		无RPC，优良的数据定义，RPC功能弱
+
+三、Thrift + Protobuf
+	利用Protobuf在灵活数据定义、高性能的序列化/反序列化、兼容性上的优势，
+	以及Thrift在传输上的成熟实现，将两者结合起来使用，是不少互联网公司的选择。
+
+四、服务注册与发现
+	Spring cloud提供了服务注册和发现功能
+	Zookeeper作为注册表，使用Apache Curator 来管理Zookeeper的链接
+		注册表结构：机房区域-部门-服务类型-服务名称-服务器地址
+
+五、连接池
+	一般互联网公司都会开发内部自用的链接池。自己实现可以基于JDBC链接池做改进。
+
+六、API网关
+	API网关可以认为是一系列服务集合的访问入口。
+
+
+
+
+微服务的开发，这包括熔断、限流、身份验证、监控、负载均衡、缓存等。

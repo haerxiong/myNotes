@@ -1,0 +1,19 @@
+1、基础：
+	使用docker搭建hadoop分布式环境。
+	https://github.com/kiwenlau/hadoop-cluster-docker
+
+
+2、Hadoop
+
+	一、HDFS服务：start-dfs.sh
+		
+		服务器以区块为存储单位。1个文件被存储在多个区块中，且在集群保有若干副本。
+
+		NameNode为控制节点、DataNode为数据存储节点
+
+
+	二、YARN服务：start-yarn.sh
+
+		Hadoop2.0中MapReduce是运行在Yarn之上
+
+		ResourceMapper是老大、NodeManager是小弟

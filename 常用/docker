@@ -1,0 +1,14 @@
+Docker 是一个开源的应用容器引擎
+
+dockerClient客户端
+Docker Daemon守护进程
+Docker Image镜像
+DockerContainer容器
+
+命令
+	docker version
+	docker search targetname 搜索targetname
+	docker pull fullname 下载fullname
+	docker images 已下载镜像
+	docker ps 查看运行中镜像
+	docker inspect imageid 查看镜像imageid详细

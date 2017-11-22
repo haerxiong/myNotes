@@ -1,0 +1,26 @@
+编码
+	Unicode		每个字符 	以'&#'开头，';'结尾。	eg:&#36825; &#101;
+	UTF8		汉字 		以'&#x'开头，';'结尾。	eg:&#x8FD9;
+	ASCII		每个字符 	以\u开头。				eg:\u002c \u0074
+	URLEncode	汉字等		以'%'开头，多组。		eg:%E7%87%9A
+
+BASE64
+	二进制到字符的过程，特点是有'+'或'=='
+
+RSA算法
+	公钥加密算法\非对称加密算法
+
+散列/哈希
+	SHA
+	MD5
+	HmacSHA
+	HmacMD5
+	PBKDF2
+
+加密/解密(带密码)
+	AES
+	DES
+	RC4
+	Rabbit
+	TripleDes
+
