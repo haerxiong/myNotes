@@ -1,0 +1,17 @@
+JPDA用于在各种环境中轻松调试 Java 应用程序。
+
+JPDA组成：
+	两个接口（JVM Tool Interface、JDI）、一个协议（JDWP）和两个用于合并它们的软件组件
+
+
+-----------------------------------------------------------
+JVM可以打开指定端口由于远程调试，HADOOP中需修改hadoop_env.sh，最后追加调试端口：
+
+export HADOOP_NAMENODE_OPTS="-agentlib:jdwp=transport=dt_socket,address=8888,server=y,suspend=y"
+export HADOOP_DATANODE_OPTS="-agentlib:jdwp=transport=dt_socket,address=9888,server=y,suspend=y"
+
+-----------------------------------------------------------
+
+启动docker时，需要开启端口映射
+docker run -p 9000:9000 .............
+

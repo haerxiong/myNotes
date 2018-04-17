@@ -1,0 +1,9 @@
+SpringBoot 约定优于配置，整合各种框架的配置文件到一个位置。
+
+内置tomcat容器，使web服务以main方法的方式启动。
+
+通过@MapperScan配置mybatis的mapper.xml位置
+
+通过@Configuration可以在类中配置多数据源
+
+类可以通过@ConfigurationProperties(prefix = "home")引用properties中的参数

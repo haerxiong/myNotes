@@ -1,0 +1,30 @@
+以太坊是什么
+以太坊（Ethereum）是一个建立在区块链技术之上， 去中心化应用平台。
+（它是一个开发平台，可以理解为Android）
+
+什么是智能合约
+以太坊上的程序称之为智能合约 
+
+编程语言：Solidity
+智能合约的默认的编程语言是Solidity，文件扩展名以.sol结尾。
+
+运行环境：EVM
+EVM（Ethereum Virtual Machine）以太坊虚拟机是以太坊中智能合约的运行环境。
+EVM运行在以太坊节点上
+
+如何部署
+智能合约的部署是指把合约字节码发布到区块链上，并使用一个特定的地址来标示这个合约，这个地址称为合约账户。
+
+客户端Geth(执行编译后的合约代码)
+	启动
+	geth --datadir testNet --dev console 2>> test.log
+	创建账户
+	personal.newAccount('lw')
+	给账户转账
+	eth.sendTransaction({
+		from:'',
+		to: '',
+		value:web3.toWei(1, "ether")
+	})	
+	部署合约前需要先解锁账户
+	personal.unlockAccount(eth.accounts[1],'lw')

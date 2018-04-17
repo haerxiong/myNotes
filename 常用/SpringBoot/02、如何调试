@@ -1,0 +1,11 @@
+引入spring-boot-devtools工具包：
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+同时，在idea中勾选项目auto编译。
+
+mvn spring-boot:run启动后修改类结构也可以实现热部署，无需重启。

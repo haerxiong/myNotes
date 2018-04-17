@@ -1,0 +1,6 @@
+
+
+--------------------------------------
+
+git中文文件名和中文目录显示乱码
+git config --global core.quotepath false
