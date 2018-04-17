@@ -1,4 +1,9 @@
+https://blog.csdn.net/halaoda/article/details/78661334
 
+git status 查看当前状态 
+git add ./* 添加到版本控制
+git commit -am 'ok' 提交所有变更
+git remote show 显示远程库别名
 
 --------------------------------------
 
