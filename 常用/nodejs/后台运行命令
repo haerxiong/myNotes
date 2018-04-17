@@ -5,3 +5,17 @@ linux
 win
 
 start /b +命令
+
+
+
+----------------------------------
+
+npm install -g forever
+
+forever start app.js
+forever stop app.js
+	-l log.log
+	-o out.log
+	-e err.log
+	
+forever start -l forever.log app.js

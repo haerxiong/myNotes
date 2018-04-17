@@ -1,14 +1,24 @@
-Docker 是一个开源的应用容器引擎
+Docker 是一个开源的应用容器引擎，可理解为云版的虚拟机，更快速便捷。
 
-dockerClient客户端
-Docker Daemon守护进程
-Docker Image镜像
-DockerContainer容器
+使用步骤：
+	1、在linux上安装docker
+	2、修改docker镜像仓库为第三方仓库，以提高速度
+	3、启动docker服务
+	4、从仓库下载镜像
+	5、从镜像启动容器（容器看起来就像一个linux系统，可以ssh登录操作）
+
+组成：
+	DockerClient客户端
+	Docker Daemon守护进程
+	Docker Image镜像
+	DockerContainer容器（如果把镜像比作类，容器就是对象）
 
 命令
 	docker version
 	docker search targetname 搜索targetname
 	docker pull fullname 下载fullname
 	docker images 已下载镜像
-	docker ps 查看运行中镜像
+	docker ps 查看运行中容器
 	docker inspect imageid 查看镜像imageid详细
+	docker run imagefullname 实例化一个容器
+	docker stop imageid 停止容器
