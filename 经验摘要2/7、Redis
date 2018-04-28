@@ -1,3 +1,8 @@
+启动
+src/redis-server redis.conf &
+关闭
+src/redis-cli shutdown
+
 Redis 数据类型
 	string,hash,list,set,zset
 

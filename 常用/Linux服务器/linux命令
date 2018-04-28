@@ -13,3 +13,7 @@ find .|xargs grep -ri "userfiles" -l
 
 将目录/modules下面所有文件中的zhangsan都修改成lisi，这样做：
 sed -i "s/zhangsan/lisi/g" `grep zhangsan -rl /modules`
+
+ssh互信，免密登录
+	ssh-keygen -t rsa       生成各自的key文件
+	ssh-copy-id -i  .ssh/id_rsa.pub root@192.168.3.21    把公钥复制到远程主机上

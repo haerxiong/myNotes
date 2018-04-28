@@ -22,3 +22,10 @@ Docker 是一个开源的应用容器引擎，可理解为云版的虚拟机，�
 	docker inspect imageid 查看镜像imageid详细
 	docker run imagefullname 实例化一个容器
 	docker stop imageid 停止容器
+
+修改容器
+	1、进入容器命令行
+		docker exec -it 容器id bash
+	2、exit退出
+	3、提交容器到新镜像
+		docker commit 容器id 新镜像名
