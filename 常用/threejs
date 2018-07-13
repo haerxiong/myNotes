@@ -1,0 +1,33 @@
+Threejs三大件：
+
+	场景scene	var scene = new TREE.Scene();
+	相机camera	var camera = new TREE.PerspectiveCamera(...)
+	渲染器renderer	var renderer = new TREE.WebGLRenderer();
+
+	rederer.setSize(w, h);
+	document.body.appendChild(rederer.domElement);
+
+	位置（场景）：
+		geometry几何学
+		material材料
+		cube立方体
+		vertices顶点
+
+		右手坐标系，  →x  ↑y  z
+
+	相机：
+		正投影 		Orthographic
+		透视投影	Perspective
+
+	渲染：
+		Light
+			点光源point、区域光area、
+			方向光/平行光directional、
+			环境光ambient、聚光灯spot
+
+		纹理/材质
+
+3D模型
+	顶点vertex 三角形、四边形
+
+	obj 3ds fbx stl vtk
