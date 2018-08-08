@@ -1,0 +1,28 @@
+https://blog.csdn.net/halaoda/article/details/78661334
+
+git status 查看当前状态 
+git add ./* 添加到版本控制
+git commit -am 'ok' 提交所有变更
+git remote show 显示远程库别名
+git branch -a 	查看远程branch
+
+--------------------------------------
+
+git中文文件名和中文目录显示乱码
+git config --global core.quotepath false
+
+--------------------------------------
+只获取部分代码，只要在sparse-checkout文件中指定下载目录即可：
+	git config core.sparsecheckout true
+	echo “libs” >> .git/info/sparse-checkout
+	git pull origin master
+
+--------------------------------------
+强制覆盖本地文件
+	git fetch --all  
+	git reset --hard origin/master
+
+--------------------------------------
+删除远程分支
+在Git v1.7.0 之后，可以使用这种语法：
+git push origin --delete <branchName>

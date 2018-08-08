@@ -1,0 +1,23 @@
+1、服务注册和发现：eureka,-server/-client
+	管理服务。
+	server高可用
+
+2、服务调用：
+	方式1：ribbon + restTemplate
+	方式2：feign
+
+3、断路器：hystrix
+	服务无法访问时，返回静态内容。
+
+4、路由网关：zuul
+	根据路径指向不同服务。
+	可以加过滤器。
+
+5、配置中心：config,-server/-client
+	高可用：将config注册到eureka上即可
+
+6、消息总线：bus
+	可用于在线更新配置文件，仅应用于client端即可
+
+7、服务追踪：zipkin
+	只需在Pom中引用即可

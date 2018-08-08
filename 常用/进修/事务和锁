@@ -1,0 +1,37 @@
+MySQL中的锁
+	策略角度
+		乐观锁	检测冲突
+		悲观锁	避免冲突
+
+	读写角度
+		共享锁（读锁）	只读不可写
+		排他锁（写锁）	可读可写
+
+	粒度角度
+		表级锁	MyISAM
+		行级锁	InnoDB
+
+@Transactional
+	注意
+		只能被应用到public方法上
+		遇到需要捕获的异常(throw new Exception("注释");)不会回滚
+		一般不在接口上使用，而在具体实现类中使用
+
+	事务传播行为Propagation.
+		NOT_SUPPORTED	无
+		REQUIRED		如果有事务, 那么加入事务, 没有的话新建一个(默认)
+		REQUIRES_NEW	创建一个新的,原来的挂起,执行完毕,继续执行老的
+		MANDATORY		必须在一个已有的事务中执行,否则抛出异常
+		NEVER			必须在一个没有的事务中执行,否则抛出异常
+		SUPPORTS		看调用它的bean中是否有事务
+	隔离级别Isolation.
+		READ_UNCOMMITTED	读取未提交数据，会脏读
+		READ_COMMITTED 		读取已提交数据，会不可重复读和幻读
+		REPEATABLE_READ 	可重复读，会幻读
+		SERIALIZABLE		串行化
+
+		脏读：读取了另一个事务撤回的数据
+		不可重复读：一次事务两次读取同一数据不一样，即不可重复
+		幻读：一个事务读到另一个事务已提交的insert数据
+
+		MYSQL: 默认为REPEATABLE_READ级别
