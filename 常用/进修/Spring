@@ -1,0 +1,54 @@
+Spring IoC容器
+	BeanFactory
+	ApplicationContext（更丰富）
+
+	Bean
+		id与name都代表bean唯一标识符
+		三种配置方式：基于XML;基于注解;基于JAVA;
+
+	Bean的作用域（scope）
+		singleton （默认方式，单例）
+		,prototype （每次创建新的实例）
+		,request,session,global-session
+
+	生命周期
+		init-method,destory-method
+
+Spring 依赖注入
+	即：两个有依赖的类，将一个类的实例化和提供给另一个类的过程单独控制(Spring控制)
+
+Spring AOP
+	Aspect
+		pointcut-----------指向某类方法
+		Advice-------------指向具体处理
+			五种Advice中Around可以改变返回值！	
+
+重要注解
+	@Configuration  @Bean定义bean来源
+	@Import引入另一个来源
+	@Required标记必须性
+	@Qualifier区别类型相同的两个bean
+
+Spring 事务
+	编程式-事务管理。
+	申明式-事务管理。
+
+	核心：dataSource \ trasactionManager \ jdbcTemplate
+	过程：
+		TransactionDefinition → new TransactionStatus(def) → tm.commit(status)
+		
+		TransactionDefinition
+			事务定义（传播行为、隔离级别、名字、timeout、readonly）
+
+		TransactionStatus
+			控制事务的执行和查询事务状态
+
+Spring WebMVC
+	WebApplicationContext组件：
+		DispatcherServlet-HandlerMapping-Controller-ViewResolver
+
+	使用aop做统一异常分类处理
+		@ControllerAdvice注解类
+			@ExceptionHandler(SQLException.class)注解到处理方法1
+			@ExceptionHandler(IOException.class)注解到处理方法2
+	

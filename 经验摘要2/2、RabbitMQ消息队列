@@ -1,3 +1,23 @@
+RabbitMq的主要组成：
+
+	Connection --- 配置
+	Channel --- 命令
+	Exchange --- 路由
+	Queue --- 消息队列	
+
+	注：
+		1、重点是Exchange和Queue
+		2、消息最终在Queue上分发，但客户端消息先发送到Exchange上
+		3、这样解耦出了，消息的路由规则，即Exchange到Queue的绑定规则。
+
+路由规则：
+	fanout，忽略routing_key，接收Exchange的全部消息
+	direct，根据routing_key关键字匹配，接收部分消息
+	topic， 根据routing_key分层匹配，接收部分消息
+	（.分层符号 ； *匹配一层 ；#匹配多层）
+
+-----------------------------------------------------------------
+
 一、介绍
 	消息队列，应用系统间消息传递的方式。
 	可以用来做异步，把实时性要求低的业务分离出来，提高系统响应时间。
