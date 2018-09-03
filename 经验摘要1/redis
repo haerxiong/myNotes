@@ -1,16 +1,37 @@
-安装 yum install redis
-启动 service redis start
-连接 redis-cli
+redis存储时，有序列化策略
 
-设置set name "lw"
-获取get name
-删除del name
-增长incr index
-有效时间(秒)expire timer 10
-查询剩余时间ttl expire timer
+spring-data-redis默认采用的序列化策略有两种，一种是String的序列化策略，一种是JDK的序列化策略。
 
-数据结构:
-list、set、
+-----------------------------------------------------------------
 
+redis命令
 
-60.205.140.38:6379 yxhome
+key:
+	del、expire、ttl、persist、type、exists
+
+string:
+	set|get、
+	strlen、
+	append、incr|decr
+
+hash:
+	hvals、hset|hget|hdel、
+	hlen、
+	hexists、hkeys、
+	hscan
+
+list:
+	lrange、lpop|lpush|rpop|rpush、
+	llen、
+	lindex
+
+set:
+	smembers、sadd|srem、
+	scard、
+	sdiff|sinter|sunion、sismenmber、
+	scan
+
+sorted set:
+	zrange、zadd|zrem|zscore
+	zcard
+	zcount、zincrby、zrank
