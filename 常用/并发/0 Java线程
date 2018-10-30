@@ -1,0 +1,23 @@
+线程由操作系统创建；
+代表线程的Thread对象由JVM创建。
+
+Java实际上是在它的所有非守护线程完成退出的；
+同样，System.exit(0)也会关闭所有非守护线程。
+
+servlet容器创建多个线程，处理servlet请求。
+
+Java中的线程：
+	1、Thread
+	2、AWT Swing
+	3、RMI
+	5、TimerTask工具
+	6、servlet
+
+关键字：
+	synchronized 每个对象都有一个相关的锁，一个锁每次只能由一个线程持有。
+	volatile 适用于基本类型，绕过高速缓存，直接写入主内存，比同步简单。
+
+synchronized方法，限定的是一个对象的某个方法，而不是整个类。
+
+Collection子类是线程不安全的。
+Collections.synchronizedMap()等方法可以包装Collection子类，使其线程安全。

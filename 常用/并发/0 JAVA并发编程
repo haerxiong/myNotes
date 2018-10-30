@@ -1,0 +1,24 @@
+线程
+	java.lang
+		Thread,		Runnable
+	java.util.concurrent
+		Callable,	Future(->FutureTask->Task),		Executor
+
+线程模型
+	Reactor线程模型：单线程、多线程、主从多线程（Netty4）
+
+线程池
+	ThreadPoolExecutor->ScheduledThreadPoolExecutor
+
+java.util.concurrent包主要包含：
+	atomic包(原子int、long、boolean、reference等类型)
+	locks包(锁相关)
+	执行者Executor(Pool)、
+	任务Future(Task)、
+	线程安全的容器Map、List、Set、Queue、Deque
+	其他类：CountDownLatch、CyclicBarrier
+
+Fork/Join
+CAS（原子操作）
+AQS（并发同步框架）
+并发队列（阻塞队列）

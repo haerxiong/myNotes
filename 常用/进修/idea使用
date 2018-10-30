@@ -1,0 +1,18 @@
+idea方法注释生成三步：
+
+----------------------------------------
+
+**
+
+----------------------------------------
+
+**
+ * $params$ 
+ * @return 
+ * @author VictorLiu 
+ * @date $Date$ $time$ 
+ */
+
+----------------------------------------
+
+groovyScript("_1.collect { '\\n * @param ' + it}.join(' ') + ''", methodParameters())

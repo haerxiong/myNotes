@@ -1,0 +1,7 @@
+《数据库连接池》
+
+C3p0 				Hibernate、Spring，单线程、性能较差、适用于小型系统
+DBCP 				Tomcat，单线程，类多，性能不好，适用于小型系统。
+Tomcat Jdbc Pool 	Tomcat7.0+，类少，支持高并发应用环境
+BoneCP 				Hibernate、DataNucleus，快。
+Druid 				强大的监控和扩展功能，高性能的开源分布式系统
