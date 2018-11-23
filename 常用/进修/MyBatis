@@ -1,0 +1,31 @@
+MyBatis
+
+1、准备工作 work in SpringBoot
+	引入jar包
+	spplicaiton.properties中编写配置：
+		mapper.xml位置：	mybatis.mapper-locations
+		驼峰转化：			mybatis.configuration.map-underscore-to-camel-case
+	接口类扫描：
+		入口类增加@Mapper-Scan("包名")
+		或者
+		接口类增加@Mapper
+	自动生成插件
+		mybatis-generator配置插件plugin及配置文件可生成mapper文件及实体类
+	分页组件
+		com.github.pagehelper.pagehelper-spring-boot
+
+2、作用
+	封装JDBC操作、打通Java类与SQL间转换
+
+3、主要成员
+	Configuration 		配置信息
+	SqlSession 	 		工作的顶层API，完成增删改查功能
+	Executor 			执行器，负责SQL语句生成、查询缓存的维护
+	StatementHandler	封装JDBC Statement操作
+	ParameterHandler 	用户传参转化为Statement对应数据类型
+	ResultSetHandler 	负责JDBC返回ResultSet结果集转化为List
+	TypeHandler 		负责java数据类型和jdbc数据类型映射和转换
+	MappedStatement 	维护一条<select|update|delete|insert>节点的封装
+	SqlSource 			根据parameterObject动态生成SQL，将信息封装到BoundSql并返回
+	BoundSql 			表示动态生成的Sql语句以及相应参数信息
+

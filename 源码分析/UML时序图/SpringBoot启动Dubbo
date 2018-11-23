@@ -1,0 +1,15 @@
+title Dubbo原理（SpringBoot）
+
+SpringBoot->dubbo配置类:spring.factories
+SpringBoot->AnnotationBean:BeanPostProcessor//扫描到Service时初始化ServiceBean
+SpringBoot->ServiceBean:Spring消息机制
+
+AnnotationBean->AnnotationBean:postProcessAfterInitialization()
+ServiceBean->ServiceBean:onApplicationEvent()
+
+opt:调用父类方法
+ServiceBean->ServiceConfig:export()
+ServiceConfig->ServiceConfig:doExport()
+ServiceConfig->ServiceConfig:doExportUrls()
+ServiceConfig->+ServiceConfig:doExportUrlsFor1Protocol()
+end

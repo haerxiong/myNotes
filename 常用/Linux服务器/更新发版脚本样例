@@ -1,0 +1,21 @@
+1、使用output赋值实现等待效果：
+
+command 1
+output = `command 2`
+command 3
+
+2、使用 <<EOF 实现执行mysql脚本效果
+
+------------------------------------
+
+cd /root/project
+output=`git pull lw master`
+output=`mvn clean package -Dmaven.test.skip=true`
+ps -ef | grep tomcat | grep -v grep | awk '{print $2}' | xargs kill -9
+output=`rm -rf /root/apache-tomcat-7.0.72/webapps/*`
+output=`mv /root/project/target/jeecg.war /root/apache-tomcat-7.0.72/webapps/jeecg.war`
+mysql -uroot -proot jing <<EOF
+source /root/project/update.sql;
+EOF
+/root/apache-tomcat-7.0.72/bin/startup.sh
+exit;

@@ -1,0 +1,3 @@
+var t = $(parent.document).find(".ui_buttons>input:nth-child(2)").parents("div");
+$(t[t.length-1]).hide();
+$(parent.document).find("#ldg_lockmask").hide();
