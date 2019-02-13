@@ -2,8 +2,8 @@ RabbitMq的主要组成：
 
 	Connection --- 配置
 	Channel --- 命令
-	Exchange --- 路由
-	Queue --- 消息队列	
+	Exchange --- 路由，生产者将消息发送到某个exchange上
+	Queue --- 消息队列，根据绑定关系，exchange将消息分发到各queue上并处理。
 
 	注：
 		1、重点是Exchange和Queue

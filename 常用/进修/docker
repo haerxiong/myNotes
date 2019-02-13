@@ -1,3 +1,27 @@
+
+构建镜像
+docker build -t [imageName] .
+创建容器
+docker run -d -p 80:80 [imageName]
+进入容器
+docker exec -it [imageID] bash
+
+-------------------------------------
+
+停止所有的container
+docker stop $(docker ps -a -q)
+删除所有container
+docker rm $(docker ps -a -q)
+
+
+docker commit -a "duguwei888" -m "说明" [容器id]  mymysql:v1 
+
+docker run -d -p 8081:8081 lw/java:v2 /bin/bash -c "while true;do echo hello docker;sleep 1;done"
+docker exec -it [容器id] bash
+
+docker run -v ./redis.conf:/etc/redis.conf -d -p 6380:6379 redis redis-server /etc/redis.conf
+--------------------------
+
 Docker 是一个开源的应用容器引擎，可理解为云版的虚拟机，更快速便捷。
 
 使用步骤：

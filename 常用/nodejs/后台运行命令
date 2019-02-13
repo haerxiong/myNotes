@@ -1,6 +1,6 @@
 linux
 
-命令行的后面加一个 &
+nohup 命令 &
 
 win
 

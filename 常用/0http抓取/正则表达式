@@ -1,12 +1,12 @@
-1、F12控制台
+1、F12控制台（表达式前后要加/）
 	
 	不含png或jpg或woff的
 
-		^(?!.*(jpg|png|woff))
+		/^(?!.*(jpg|png|woff|webp|js|gif|css|php))/
 
 	不含.js的	
 
-		^(?!.*(\.js))
+		/^(?!.*(\.js))/
 
 说明：
 
