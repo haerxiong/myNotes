@@ -1,0 +1,33 @@
+SpringBoot注解详解
+https://blog.csdn.net/zsq520520/article/details/55261359
+
+@SpringBootApplication
+(@ComponentScan @Configuration @EnableAutoConfiguration)
+@Configuration 相当于spring配置文件
+@Component+CommandLineRunner启动后执行些基础任务
+
+------------------
+@Import 导入其他配置类
+@ImportResource 导入xml配置文件
+@Repository 可以提供异常转译
+@Value 引用application.properties属性
+
+------------------
+配置相关@ConditionalOnXXXXXX：
+@ConditionalOnBean 存在某个对象
+@ConditionalOnClass 存在某个类
+@ConditionalOnExpression 表达式true
+@ConditionalOnMissingBean 不存在某个对象
+@ConditionalOnMissingClass 不存在某个类
+@ConditionalOnNotWebApplication 不是web应用
+
+------------------
+JPA注解：
+@Entity@Table 实体类
+@MappedSuperClass 父类entity
+@NoRepositoryBean
+@Column
+@Transient 非数据库字段，ORM时忽略
+
+------------------
+@ControllerAdvice @ExceptionHandler 全局异常处理

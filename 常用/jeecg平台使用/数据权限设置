@@ -1,0 +1,14 @@
+数据权限的表需要包含两个字段：
+	`sys_org_code` varchar(50) DEFAULT NULL COMMENT '所属部门',
+	`sys_company_code` varchar(50) DEFAULT NULL COMMENT '所属公司',
+
+配置：
+
+1、“数据权限”下增加菜单，地址为'*Controller.do?datagrid'
+
+2、在这个菜单下新增数据规则
+
+3、常用规则有：
+
+	部门规则：sysOrgCode	模糊	#{sys_org_code}
+	个人规则：createBy		等于	#{sys_user_code}
