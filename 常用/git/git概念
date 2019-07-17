@@ -1,0 +1,70 @@
+远程git库（gitHub)
+
+
+			        git checkout -- *           git reset  
+本地git库：	工作区----------------------暂存区---------------------版本库
+					git add                     git commit
+
+---------------------------------------
+
+工作区：就是本地的文件
+暂存区：叫stage或者index
+HEAD:指向master
+.git:就是版本库，其中包含了暂存区
+
+
+本地库说明：
+	git commit 只负责把暂存区的修改提交到版本库
+	git diff HEAD -- [fileName]  查看工作区、版本库区别
+	git checkout 后的'--'很重要，没有就变成切换分支了
+
+---------------------------------------
+
+分支策略
+
+	master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活
+
+	干活都在dev分支上，每个人都有自己的分支，时不时地往dev分支上合并
+
+	HEAD指向当前分支
+
+	分支merge时，加上--no-ff参数，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+---------------------------------------
+stash保存当前状态
+
+	1、正在dev分支开发，突然需要紧急修复master主干bug
+	2、git stash保存工作状态
+	3、切换到master，新建bug修复分支，合并bug分支
+	4、切换回dev分支，git stash list查看
+	5、还原工作状态git stash pop
+
+----------------------------------------
+标签
+	与分支类似，只是容易记住
+
+---------------------------------------
+远程同步问题
+
+	master\dev分支要保持一致
+	bug分支，本地合并到master，然后push到远程
+	feature分支，如果要协同开发，则要把分支同步到远程
+
+--------------------------------------------------------------------------------
+配置及特殊用法：
+
+	中文目录乱码
+		git config --global core.quotepath false
+
+	只获取部分代码，只要在sparse-checkout文件中指定下载目录即可：
+		git config core.sparsecheckout true
+		echo “libs” >> .git/info/sparse-checkout
+		git pull origin master
+
+	强制覆盖本地文件
+		git fetch --all  
+		git reset --hard origin/master
+
+	删除远程分支
+	在Git v1.7.0 之后，可以使用这种语法：
+	git push origin --delete <branchName>
