@@ -1,0 +1,23 @@
+查看配置
+git config --list|grep keyword
+
+----------------------------------------------------------
+
+查看最后10行日志（结果倒序显示）
+git log -10
+
+commit追加到上次提交
+git add *
+git commit --amend
+
+合并本地最后5次commit(结果正序显示)
+git rebase -i HEAD~5
+	注：命令输入后，进入vi模式，后边的commit用squash，保存退出后；进入提交信息确认页面，也是vi模式，默认叠加了多次的提交信息，此时可以删除重新编辑；最后保存即可。
+
+
+撤销commit到暂存区(--soft默认，可以不写)
+	git reset --soft HEAD~1
+撤销commit到工作区
+	git reset --mixed HEAD~1
+插销commit，不保留改动
+	git reset --hard HEAD~1

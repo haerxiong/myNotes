@@ -1,0 +1,36 @@
+开始：8.19
+
+本月：多线程并发
+
+1、启动线程的唯一方法：Thread（Runable）类的start方法
+2、有返回值的任务，必须实现Callable，返回一个Future对象
+3、线程生命周期
+	新建New
+	就绪Runnable,start()后
+	运行Running,获得CPU时
+	阻塞Blocked
+		等待阻塞,obj.wait()后进入等待队列
+		同步阻塞,进入锁池
+		其他阻塞,Thread.sleep()/t.join()/IO请求
+	死亡Dead
+4、终止线程的4种方式
+	run方法结束
+	while(exit) {do something} 使用volatile使exit同步，同时只能由1个线程来修改exit的值
+	调用interrupt方法，导致抛出InterruptedException异常，捕获异常跳出循环
+	stop方法（突然释放所有锁，不安全）
+5、sleep和wait
+	Thread方法，sleep方法不会释放对象锁
+	Object方法，wait会，等待notify方法后才重新获取对象锁
+6、守护线程
+	将一个用户线程设置为守护线程的方式是在 线程对象创建 之前 用线程对象的 setDaemon 方法
+	Daemon 线程中产生的新线程也是 Daemon 的
+	线程则是 JVM 级别的，停止了 Web 应用，这个线程依旧是活跃的
+
+--------------------------------------------------------------------
+
+JAVA锁
+
+乐观锁。java 中的乐观锁基本都是通过 CAS 操作实现的。
+悲观锁。java中的悲观锁就是Synchronized,AQS框架下的锁则是先尝试cas乐观锁去获取锁，获取不到，
+才会转换为悲观锁，如 RetreenLock。
+自旋锁。
