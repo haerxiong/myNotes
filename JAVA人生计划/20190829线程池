@@ -1,0 +1,17 @@
+线程基本方法
+	wait notify notifyAll sleep join yield
+	wait sleep 都让当前线程阻塞，不同是sleep不会释放占用的锁。
+	yield 当前线程让出CPU
+	interrupt 仅更改当前线程中断标识，不中断线程。调用后某些方法会抛出interruptException异常，并重置中断标识。
+	join 当前线程阻塞，等待子线程执行结束
+	wait\notify需要在同步块中使用。
+
+线程池
+	特点：
+		线程复用，控制最大并发数，管理线程。
+	原理：
+		循环调用Queue中的Runnable对象，获取Runnable之前可以是阻塞的。
+	组成：
+		线程池管理器、工作线程、任务接口、任务队列
+	拒绝策略
+		

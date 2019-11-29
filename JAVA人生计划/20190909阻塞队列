@@ -1,0 +1,13 @@
+ArrayBlockingQueue
+	数组结构 有界
+LinkedBlockingQueue
+	链表 有界
+PriorityBlockingQueue
+	优先排序 无界
+DelayQueue
+	优先级队列 无界
+SynchronousQueue
+	不存储元素
+LinkedTransferQueue
+LinkedBlockingDeque
+	链表 双向

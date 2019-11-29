@@ -1,0 +1,16 @@
+volatile关键字
+	声明变量是 volatile 的，JVM 保证了每次读变量都从内存中读，跳过 CPU cache
+
+
+多线程共享数据
+	Java主要方式就是 共享内存
+
+线程内部共享变量
+	ThreadLocal
+	Thread类中定义了一个ThreadLocalMap来存储线程本地变量
+	ThreadLocal 静态实例作为 key，将不同对象的引用保存到不同线程的ThreadLocalMap 中
+
+
+分段锁 ConcurrentHashMap
+
+	默认分为16个段，即16个HashMap。

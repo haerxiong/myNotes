@@ -1,0 +1,41 @@
+乐观锁
+悲观锁
+自旋锁
+Synchronized同步锁（非公平锁）
+	核心组件：
+		WaitSet：调用wait方法阻塞的线程。
+		ContentionList：（竞争队列）请求锁的线程首先进入此队列
+		EntryList：有资格成为候选者的线程。
+		OnDeck：当前正在竞争锁资源的线程。
+		Owner：已获取资源的线程。
+		!Owner：释放锁的线程。
+ReentrantLock可重入锁
+	能完成synchronized的全部工作。
+	默认构造为非公平锁
+	lockInterruptibly可被Thread.interrupt中断
+Semaphore信号量
+	基本能完成ReentrantLock的全部工作。
+	计数为1时，可用作互斥锁
+	acquire可被Thread.interrupt中断
+AtomicInteger
+	i++不具有原子性，非线程安全。
+可重入锁(也叫递归锁)
+	指的是同一线程外层函数获得锁之后，内层递归函数仍然有获取该锁的代码，但不受影响。ReentrantLock和synchronized都是可重入锁。
+公平锁与非公平锁（更快）
+	加锁前检查是否有排队等待的线程。
+	直接尝试获取锁，获取不到到队尾等待。
+读写锁ReadWriteLock
+	多个读锁不互斥，读锁与写锁互斥。
+	读时上读锁，写时上写锁。
+共享锁与独占锁
+	独占锁：只有一个线程能持有锁。
+	共享锁：允许多个线程，如ReadWriteLock
+四种状态：无锁状态、偏向锁、轻量级锁、重量级锁。锁升级(膨胀)是单向的。
+	重量级锁
+		Synchronized依赖于操作系统Mutex Lock，需要从用户态切换到核心态，成本非常高。
+	轻量级锁
+		适应线程交替执行同步块的情况，如果同一时间访问同一锁，则膨胀为重量级锁。
+	偏向锁
+		消除同一线程重入的开销。
+分段锁思想
+	ConcurrentHashMap

@@ -1,0 +1,6 @@
+查看死锁表
+show OPEN TABLES where In_use > 0;
+查找死锁进程
+show processlist ;
+杀死进程
+kill 97050;

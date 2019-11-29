@@ -21,3 +21,12 @@ git rebase -i HEAD~5
 	git reset --mixed HEAD~1
 插销commit，不保留改动
 	git reset --hard HEAD~1
+
+查看分支历次更改记录，最下面一条是创建时间
+	git reflog show --date=iso origin/订单信息汇总速度优化
+
+查看某个commitId
+	git show [commitId]
+
+查看某个commitId的分支(-r 代表远程库)
+	git branch -r --contains commitId

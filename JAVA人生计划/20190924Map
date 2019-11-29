@@ -1,0 +1,29 @@
+HashMap
+	JDK1.7使用，数组+ 单链表 的数据结构。
+	JDK1.8后使用，数组+链表+红黑树 的数据结构。
+
+	Node[]存储值，Node.next存储冲突的哈希值。
+
+平衡二叉树
+	定义：左右两个子树高度差<=1，且两个子树都是平衡二叉树。
+
+	实现方法：红黑树、AVL、替罪羊树、Treap、伸展树
+
+	如果你的树经历过许多 insert/remove 等等岁月的沧桑, 越长越歪, 在适当的时候对它进行一下旋转手术, 不就可以将它变回矮矮胖胖四平八稳的美丽模样吗? 所以左旋与右旋是几种平衡树共同采用的基本手术; 只不过不同的平衡树, 选择不同的时机/条件来动手术而已。
+
+HashTable
+	加入synchronized关键字，基本与HashMap一致
+
+Collections.synchronizedMap
+	对HashMap进行包装，操作上增加synchronized关键字
+
+--------------------------------------
+
+ConcurrentHashMap
+	Node[] table存值；Node[] nextTable用于扩容。
+	baseCount总个数；
+	sizeCtl
+		0：默认值
+		-1：代表哈希表正在进行初始化
+		大于0：相当于 HashMap 中的 threshold，表示阈值
+		小于-1：代表有多个线程正在进行扩容
