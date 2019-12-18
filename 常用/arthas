@@ -1,0 +1,53 @@
+---------------
+系统检测
+---
+
+查看系统CPU、内存
+	top
+	打开后键入大写的P、M分别可以按CPU、内存排序
+	键入?打开帮助界面
+
+查看系统IO
+	top
+	第三行%Cpu信息中  0.0 wa 标识IO占用时间
+
+	yum install -y iotop
+	iotop	
+
+-------------------------------------
+java进程检测
+---
+dashboard
+查看cpu\内存
+
+thread -n 5
+查看最繁忙的前5个线程
+
+thread [ID]
+打印线程堆栈信息，查看具体在执行的任务
+
+--------------
+arthas安装及使用
+---
+
+linux安装arthas
+curl -L https://alibaba.github.io/arthas/install.sh | sh
+或者
+wget
+https://maven.aliyun.com/repository/public/com/taobao/arthas/arthas-packaging/3.1.7/arthas-packaging-3.1.7-bin.zip
+
+启动arthas
+java -jar arhtas-booter.jar
+
+查询类
+sc -d [-f] *UserController
+查询方法
+sm *UserController getAll*
+跟踪执行时间
+trace *UserContrller getAll
+查看执行前后数据
+watch -b *UserController getAll params
+watch -f *UserController getAll returnObj
+watch -f *UserController getAll 
+
+
