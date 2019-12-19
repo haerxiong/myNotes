@@ -1,0 +1,17 @@
+jconsole
+监控工具，需要被监控方开启jmx端口
+
+jmap
+
+jmap -heap [pid]
+查看jvm配置及当前内存各区使用情况
+
+jmap -histo:live
+查看类实例加载情况
+
+top -Hp [pid]
+可以查看该进程下各个线程的cpu使用情况
+
+
+jstack [pid]
+打印栈信息
