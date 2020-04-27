@@ -1,0 +1,15 @@
+-- 查看cpu、系统负载、查看io[wa]、查看网络
+top 查看CPU占用，按'?'进入参数说明界面。
+
+-- java进程是否在回收
+jstat -gccause [pid]
+
+-- java正在进行的线程
+jstack [pid]
+
+-- 查看内存
+linux: free -g
+mac: top -l 1 | head -n 10 | grep PhysMem
+
+-- 查看磁盘占用
+df -h

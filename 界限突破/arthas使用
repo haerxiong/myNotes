@@ -1,0 +1,18 @@
+OGNL对象导航图语言
+
+查看类文件
+jad cn.lw.ClassName
+
+查看配置文件
+
+查看对象及属性
+ognl '@com.runoqd.itc.quartz.utils.SpringApplicationContextHolder@getSpringBean("insurancePolicyUseCountController").detailSize'
+
+查看类的静态成员
+getstatic cn.lw.ClassName propName
+
+查看方法
+jad cn.lw.ClassName toString
+
+调用方法、静态方法
+ognl '@com.runoqd.itc.order.Utils.DQUtils@RATIO.toString'

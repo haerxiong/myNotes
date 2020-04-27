@@ -1,0 +1,14 @@
+# mybatis查询2万条数据时，转pojo速度不慢，只需6秒。
+
+# poi导出时，固定列宽，比自适应列宽要快。5万数据，自适应列宽比固定列宽慢30s。
+
+# poi导出时，使用SXSSFWorkbook可以缩小文件体积。
+
+# 跨库查询严重影响查询速度
+
+# 实际30S查询的sql，导出excel约4.5万条数据，3.37MB，用时1min
+
+结论：导出Excel速度，主要受sql查询速度、和自动列宽影响。
+
+
+XSSFWorkbook SXSSFWorkbook 大小、速度无区别
