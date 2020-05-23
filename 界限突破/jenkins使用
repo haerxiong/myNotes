@@ -1,0 +1,5 @@
+
+配置好git地址，jenkins构建中配置mvn命令后，配置java服务重启脚本(两行)：
+
+if [ $(jps |grep -c healthy.jar) -gt 0 ]; then kill -9 $(jps |grep healthy.jar|awk -F " " '{print $1}'); fi
+nohup java -jar /var/lib/jenkins/workspace/java/target/healthy.jar &

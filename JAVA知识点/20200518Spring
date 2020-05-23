@@ -1,0 +1,13 @@
+1、SpringBoot入口，SpringApplication.run方法
+	新建了一个ApplicationContext对象，执行refresh方法
+
+2、Spring启动，refresh方法
+	扫描basePackage，将bean信息存储在DefaultListableBeanFactory的map<key, BeanDefination>变量中
+	执行自定义的beanFactoryPostProcess
+	创建并执行自定义的BeanPostProcess	
+	根据BeanDefination创建实例，储存在DefaultSingletonBeanRegistry的map<key, Object>中，DefaultSingletonBeanRegistry为AbstractBeanFactory的父类
+	创建bean的时候，strategy会使用不同的策略生成代理对象（静态代理 or cglib动态代理）。
+
+3、SpringBoot组件，各种starter包含依赖的jar和spring.factories
+	@EnableAutoConfiguration注解导入了各个预置的@Configuration配置类。
+	各种组件，通过@Configuration注解，通知Spring配置自己的bean和功能。
