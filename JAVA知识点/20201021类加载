@@ -1,0 +1,41 @@
+1、加载器。通过包名+类名
+	加载器在JVM之外，可以自定义类加载器。
+	
+	加载器机制：双亲委派。先由父加载，再由子类加载。
+	依次：jre/lib   jre/lib/ext   classpath
+
+	将字节码文件（.class文件)构造为JVM内部表示的对象
+
+2、JVM中：
+	.class文件被加载到JVM内存空间中，生成一块数据结构
+
+	二进制数据放在方法区，堆中创建Class对象
+
+	类在使用前就被加载，如果类不存在，则首次使用时要报错LinkageError
+
+3、过程
+	加载：查找.class字节码
+	链接：
+		校验：检查正确性
+		准备：静态变量分配储存空间，只是默认值0 null false
+		解析(可以在初始化之后进行)：符号引用转换为直接引用；
+	初始化：
+		静态变量、静态代码块执行初始化操作
+
+4、种类
+	BootstrapClassLoader：C++实现，属于JVM的一部分
+	其他：Java实现，继承抽象类java.lang.ClassLoader
+		ExtensionClassLoader
+		ApplicaitonClassLoader
+
+5、双亲委派
+	加载类调用的是loadClass方法
+	if(parent != null) {
+		parent.loadClass();
+	} else {
+		BootstrapClassLoader.loadClass();
+	}
+
+6、符号引用、直接引用
+	符号引用就是字符串，.class中定义一个常量池，常量的值为字符串。
+	直接引用就是偏移量，方法在类中的偏移量

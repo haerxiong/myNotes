@@ -1,0 +1,30 @@
+已知：
+	factory文件保存自动加载的类名，ApplicationContext子类加载Bean，实现功能加载和配置。
+	@Autoconfiguration
+	通过@excludeFilter禁用Bean
+
+问题：
+	实践JPA数据源加载过程，修改自定义配置
+	@Enable注解的作用
+	实践@Import引入配置
+	写一个基础代码生成器的Starter
+
+	spring的核心组件
+		Maven: org.springframework:spring-aop:5.2.7.RELEASE
+		Maven: org.springframework:spring-beans:5.2.7.RELEASE
+		Maven: org.springframework:spring-context:5.2.7.RELEASE
+		Maven: org.springframework:spring-core:5.2.7.RELEASE
+		Maven: org.springframework:spring-expression:5.2.7.RELEASE
+		Maven: org.springframework:spring-jcl:5.2.7.RELEASE
+
+心得：
+	1、springBooter的一个组件包含starter和autoconfigure，starter很小，starter具体指明组件所需要的jar包，主要就是pom.xml文件，pom.xml中引入autoconfigure
+
+	2、Spring 官方 Starter通常命名为spring-boot-starter-{name}，Spring官方建议：
+		非官方 Starter命名应遵循{name}-spring-boot-starter的格式。
+
+	3、springbooter去检索jar的META-INF/spring.factories文件中的自动配置类。自带的autoconfigure默认包含了一些，但是通过@ConditionOnClass等注解来设定在特定情况下才加载。
+
+	4、@EnableXXX 实际是使用@Import来导入配置类
+
+	5、配置文件中可以使用spring.autoconfigure.exclude来排除某些类的加载

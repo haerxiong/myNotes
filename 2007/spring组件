@@ -1,0 +1,30 @@
+已知：
+	bean装载、aop、applicationContext
+
+问题：
+	beanFactory与applicationContxt的联系
+	Environment
+	Listener
+	Aware
+	EventPublisher
+	等
+
+新知：
+	applicationContxt是一个融合接口，包括以下能力：
+		EnvironmentCapable.getEnvironment
+		BeanFactory.getBean
+		MessageSource(策略模式).getMessage
+		ApplicationEventPublisher.publishEvent
+		ResourceLoader.getResource
+
+	1、spring.factories中可以决定spring中一些接口的实现类。
+
+	2、@FunctionalInterface，主要用于编译级错误检查，加上该注解，当你写的接口不符合函数式接口定义的时候，编译器会报错。
+
+	3、AbstractApplicationContext
+		包含了environment \ messageSource \ resourcePatternResolver 成员
+		包含了eventPublisher的具体实现（调用listener.method(event)）
+
+	4、引入配置文件  @PropertySource
+
+	5、读取配置文件 @Value("${XXX}") 和 @ConfigurationProperties
